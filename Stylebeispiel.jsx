@@ -1,4 +1,7 @@
-// App.js
+// Link zu Thema: https://styled-components.com/docs/basics#getting-started
+
+
+
 import React from 'react';
 import styled from 'styled-components';
 
