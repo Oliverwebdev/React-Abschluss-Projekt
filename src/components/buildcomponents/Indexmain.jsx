@@ -21,7 +21,6 @@ const CarouselContainer = styled.div`
 function Indexmain() {
   return (
     <Div>
-      <h2>Die besten Spiele aller Zeiten</h2>
       <CarouselContainer>
         {/* Hier werden die Spiele angezeigt */}
         <BestGamesEver />
