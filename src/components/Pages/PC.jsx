@@ -4,7 +4,7 @@ import PlatformRoutes from "../Navigation/navbar/PlatformRoutes";
 function PC() {
   return (
     <>
-      <PlatformRoutes />
+      <Header />
       <div>PC</div>
     </>
   );
