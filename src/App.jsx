@@ -8,11 +8,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />}>
-          <Route path="/pc" element={<PC />} />
-          <Route path="/playstation" element={<PLAYSTATION />} />
-          <Route path="/xbox" element={<XBOX />} />
-        </Route>
+        <Route path="/" element={<Home />} />
+        <Route path="/pc" element={<PC />} />
+        <Route path="/playstation" element={<PLAYSTATION />} />
+        <Route path="/xbox" element={<XBOX />} />
       </Routes>
     </>
   );

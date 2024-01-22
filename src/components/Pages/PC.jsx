@@ -1,7 +1,13 @@
 import React from "react";
+import PlatformRoutes from "../Navigation/navbar/PlatformRoutes";
 
 function PC() {
-  return <div>PC</div>;
+  return (
+    <>
+      <PlatformRoutes />
+      <div>PC</div>
+    </>
+  );
 }
 
 export default PC;

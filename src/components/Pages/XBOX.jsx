@@ -1,7 +1,13 @@
 import React from "react";
+import PlatformRoutes from "../Navigation/navbar/PlatformRoutes";
 
 function XBOX() {
-  return <div>XBOX</div>;
+  return (
+    <>
+      <PlatformRoutes />
+      <div>XBOX</div>
+    </>
+  );
 }
 
 export default XBOX;
