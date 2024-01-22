@@ -1,19 +1,21 @@
-import { Routes, Route } from "react-router-dom"; //imported Routes and Route from react-router-dom
-import Home from "./components/Pages/Home"; //imported Home component
-import PC from "./components/Pages/PC"; //imported PC component
-import PLAYSTATION from "./components/Pages/PLAYSTATION"; //imported PLAYSTATION component
-import XBOX from "./components/Pages/XBOX"; //imported XBOX component
+import Home from "./pages/Home";
+import Header from "./components/Header/Header";
+import { Routes, Route } from "react-router-dom";
+import PlayStation from "./pages/PlayStation";
+import Xbox from "./pages/Xbox";
+import PC from "./pages/PC";
 
 function App() {
   return (
-    <>
+    <div className="container">
+      <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/pc" element={<PC />} />
-        <Route path="/playstation" element={<PLAYSTATION />} />
-        <Route path="/xbox" element={<XBOX />} />
+        <Route path="/ps" element={<PlayStation />} />
+        <Route path="/xbox" element={<Xbox />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
