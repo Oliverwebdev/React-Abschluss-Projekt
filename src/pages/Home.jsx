@@ -1,8 +1,15 @@
 import React from "react";
-import Header from "../components/Header/Header";
+
+import Indexmain from "../components/buildcomponents/Indexmain";
+
 
 function Home() {
-  return <h1>Home</h1>;
+  return (
+    <div>
+    
+      <Indexmain />
+    </div>
+  );
 }
 
 export default Home;
