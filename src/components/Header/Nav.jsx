@@ -11,7 +11,7 @@ function Nav() {
           <Link to="/pc">PC</Link>
         </li>
         <li>
-          <Link to="/ps">Play Station</Link>
+          <Link to="/ps">PlayStation</Link>
         </li>
         <li>
           <Link to="/xbox">Xbox</Link>
