@@ -1,0 +1,24 @@
+:root {
+
+  --fs-500: 0.938rem;
+
+  --fw-bold: 700;
+
+  --clr-verylightgrayishblue: hsl(240, 78%, 98%);
+  --clr-LightGrayishBlue: hsl(234, 14%, 74%);
+  --clr-grayishblue: hsl(233, 13%, 49%);
+  --clr-DarkGrayishBlue: hsl(232, 13%, 33%);
+  --clr-LinearGradient: linear-gradient(
+    to right,
+    hsl(236, 72%, 79%),
+    hsl(237, 63%, 64%)
+  );
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
