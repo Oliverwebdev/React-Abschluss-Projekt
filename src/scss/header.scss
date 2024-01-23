@@ -62,7 +62,7 @@ header {
     &::after {
       content: "";
       position: absolute;
-      @apply bg-secondary;
+      @apply bg-secondary; //color of the line in user btn
       bottom: 0;
       left: 0;
       width: 100%;
@@ -83,6 +83,6 @@ svg {
 
   &:hover {
     transform: scale(1.1);
-    @apply text-secondary;
+    @apply text-secondary; //color of the svg moon
   }
 }
