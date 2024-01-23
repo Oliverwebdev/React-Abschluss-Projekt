@@ -35,12 +35,12 @@ const PcGamesFetch = () => {
   }, []);
 
   return (
-    <div className="pcGamesContainer" style={{ display: "flex" }}>
-      <h1 className="titelPcGames">PlayStation Games</h1>
+    <div className="gamesContainer" style={{ display: "flex" }}>
+      <h1 className="titelGames">PlayStation Games</h1>
 
-      <ul className="pcGamesList">
+      <ul className="gamesList">
         {games.map((game) => (
-          <li className="pcGamesCard" key={game.id}>
+          <li className="gamesCard" key={game.id}>
             <h2>{game.name}</h2>
             <img
               src={game.background_image}
