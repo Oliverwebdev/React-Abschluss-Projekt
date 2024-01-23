@@ -1,6 +1,8 @@
-// schlechteste Spiele aller Zeiten
-
 import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const WorstGamesEver = () => {
   const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
@@ -26,23 +28,34 @@ const WorstGamesEver = () => {
     fetchWorstGames();
   }, []);
 
+  // Settings for the react-slick carousel
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 4,
+  };
+
   return (
     <div>
       {worstGames.length > 0 ? (
         <div>
           <h2>Die schlechtesten Spiele aller Zeiten</h2>
-          {worstGames.map((game) => (
-            <div key={game.id}>
-              <h3>{game.name}</h3>
-              <img
-                src={game.background_image}
-                alt={game.name}
-                style={{ maxWidth: '300px', maxHeight: '300px' }}
-              />
-              <p>Bewertung: {game.metacritic}</p>
-              {/* Weitere Informationen hier einfügen */}
-            </div>
-          ))}
+          <Slider {...settings}>
+            {worstGames.map((game) => (
+              <div key={game.id}>
+                <h3>{game.name}</h3>
+                <p>Bewertung: {game.metacritic}%</p>
+                {/* Weitere Informationen hier einfügen */}
+                <img
+                  src={game.background_image}
+                  alt={game.name}
+                  style={{ maxWidth: '150px', maxHeight: '150px' }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       ) : (
         <div>Lade...</div>
