@@ -1,7 +1,40 @@
-// Einfach alle details über das Spiel anzeigen lassen
-
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
+const GameContainer = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const GameTitle = styled.h2`
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+`;
+
+const GameImage = styled.img`
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 20px;
+`;
+
+const GameDescription = styled.p`
+  color: #555;
+  margin-bottom: 15px;
+  p: {
+    margin-bottom: 8px;
+  } 
+`;
+
+const GameDetail = styled.p`
+  color: #777;
+  margin-bottom: 10px;
+`;
 
 const SingleGame = ({ gameId }) => {
   const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
@@ -22,38 +55,34 @@ const SingleGame = ({ gameId }) => {
         console.error("Fehler bei der API-Anfrage:", error);
       }
     };
-  
+
     fetchGame();
   }, [gameId]);
-  
+
   return (
-    <div>
+    <GameContainer>
       {game ? (
         <div>
-  <h2>{game?.name}</h2>
-  <img
-    src={game?.background_image}
-    alt={game?.name}
-    style={{ maxWidth: '300px', maxHeight: '300px' }}
-  />
-  <p>Beschreibung: {game.description}</p>
-  <p>Veröffentlichungsdatum: {game?.released}</p>
-  <p>Metacritic-Bewertung: {game?.metacritic}</p>
-  <p>ESRB-Rating: {game?.esrb_rating?.name}</p>
-  <p>Letztes Update: {game?.updated}</p>
-  <p>Website: {game?.website}</p>
-  <p>Bewertung: {game?.rating}</p>
-  <p>Anzahl der Screenshots: {game?.screenshots_count}</p>
-  <p>Anzahl der Filme: {game?.movies_count}</p>
-  <p>Anzahl der Schöpfer: {game?.creators_count}</p>
-  {/* mit fragezeigen kommt html mit, vielleicht fixen? */}
-  
-</div>
-
+          <GameTitle>{game?.name}</GameTitle>
+          <GameImage
+            src={game?.background_image}
+            alt={game?.name}
+          />
+<GameDescription dangerouslySetInnerHTML={{ __html: game.description }} />
+          <GameDetail>Veröffentlichungsdatum: {game?.released}</GameDetail>
+          <GameDetail>Metacritic-Bewertung: {game?.metacritic}</GameDetail>
+          <GameDetail>ESRB-Rating: {game?.esrb_rating?.name}</GameDetail>
+          <GameDetail>Letztes Update: {game?.updated}</GameDetail>
+          <GameDetail>Website: {game?.website}</GameDetail>
+          <GameDetail>Bewertung: {game?.rating}</GameDetail>
+          <GameDetail>Anzahl der Screenshots: {game?.screenshots_count}</GameDetail>
+          <GameDetail>Anzahl der Filme: {game?.movies_count}</GameDetail>
+          <GameDetail>Anzahl der Schöpfer: {game?.creators_count}</GameDetail>
+        </div>
       ) : (
         <div>Lade...</div>
       )}
-    </div>
+    </GameContainer>
   );
 };
 
