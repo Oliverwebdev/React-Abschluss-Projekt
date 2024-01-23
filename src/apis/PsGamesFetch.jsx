@@ -36,7 +36,7 @@ const PcGamesFetch = () => {
 
   return (
     <div className="gamesContainer" style={{ display: "flex" }}>
-      <h1 className="titelGames">PlayStation Games</h1>
+      <p className="titelGames">PlayStation Games</p>
 
       <ul className="gamesList">
         {games.map((game) => (
@@ -45,7 +45,7 @@ const PcGamesFetch = () => {
             <img
               src={game.background_image}
               alt={game.name}
-              style={{ maxWidth: "300px", maxHeight: "300px" }}
+              className="gameImage"
             />
             <p>Bewertung: {game.metacritic}%</p>
             <button>Mehr...</button>

@@ -36,7 +36,7 @@ const PcGamesFetch = () => {
 
   return (
     <div className="gamesContainer" style={{ display: "flex" }}>
-      <h1 className="titelPcGames">PC Games</h1>
+      <p className="titelGames">PC Games</p>
 
       <ul className="gamesList">
         {games.map((game) => (
