@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import SingleGameFetch from "./SingelGameFetch";
 
 const PcGamesFetch = () => {
   const [games, setGames] = useState([]);
+  const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,6 +35,9 @@ const PcGamesFetch = () => {
 
     fetchData();
   }, []);
+  const handleShowDetails = (gameId) => {
+    setSelectedGameId(gameId);
+  };
 
   return (
     <div className="gamesContainer" style={{ display: "flex" }}>
@@ -49,10 +54,16 @@ const PcGamesFetch = () => {
               style={{ maxWidth: "300px", maxHeight: "300px" }}
             />
             <p>Bewertung: {game.metacritic}%</p>
-            <button>Mehr...</button>
+            <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
           </li>
         ))}
       </ul>
+      {selectedGameId && (
+        <SingleGameFetch
+          gameId={selectedGameId}
+          onClose={() => setSelectedGameId(null)}
+        />
+      )}
     </div>
   );
 };
