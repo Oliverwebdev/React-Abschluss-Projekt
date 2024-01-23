@@ -8,17 +8,19 @@
 }
 
 img,
-svg {
+svg
+ {
   display: block;
   max-width: 100%;
 }
 
 a {
-  color: #fff;
+
   text-decoration: none;
 
   &:hover {
-    color: yellow;
+    @apply text-secondary;
+  
   }
 }
 

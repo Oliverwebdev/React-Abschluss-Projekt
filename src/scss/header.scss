@@ -1,16 +1,88 @@
 header {
-  background-color: #222;
-  color: #fff;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   min-height: 75px;
   align-items: center;
-  padding: 0 2rem;
+  padding: 0 3rem;
+
+  .logo {
+    img {
+      width: 70px;
+      border-radius: 50px;
+    }
+  }
 
   nav {
     ul {
       display: flex;
       gap: 2rem;
+
+      li {
+        a {
+          font-size: 1.2rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          padding: 1rem 0;
+          position: relative;
+
+          &::after {
+            @apply bg-secondary; //color of the line
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-in-out;
+          }
+
+          &:hover::after {
+            transform: scaleX(1);
+          }
+        }
+      }
     }
+  }
+}
+
+.account-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  a {
+
+    text-transform: uppercase;
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      @apply bg-secondary;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    &:hover::after {
+      transform: scaleX(1);
+    }
+  }
+}
+svg {
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+    @apply text-secondary;
   }
 }
