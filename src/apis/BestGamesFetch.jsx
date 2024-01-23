@@ -12,7 +12,7 @@ const BestGamesEver = () => {
   useEffect(() => {
     const fetchBestGames = async () => {
       try {
-        const response = await fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`, );
+        const response = await fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`);
         const data = await response.json();
         console.log("API-Antwort:", data);
         if (!data || !data.results || data.results.length === 0) {
