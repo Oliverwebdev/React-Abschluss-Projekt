@@ -7,7 +7,7 @@ const PcGamesFetch = () => {
     const fetchData = async () => {
       try {
         const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b"; // Cseréld le a saját API kulcsodra
-        const platforms = "4"; // PC platform kódja a RAWG API-ban: 4
+        const platforms = "18"; // PC platform kódja a RAWG API-ban: 4
         const pageSize = 10; // Opcionális: lekérdezési oldalonkénti játékok száma
 
         const response = await fetch(
@@ -36,7 +36,7 @@ const PcGamesFetch = () => {
 
   return (
     <div className="pcGamesContainer" style={{ display: "flex" }}>
-      <h1 className="titelPcGames">PC Games</h1>
+      <h1 className="titelPcGames">PlayStation Games</h1>
 
       <ul className="pcGamesList">
         {games.map((game) => (

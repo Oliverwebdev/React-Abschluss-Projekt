@@ -1,7 +1,12 @@
 import React from "react";
+import XboxGamesFetch from "../apis/XboxGamesFetch";
 
 function Xbox() {
-  return <h1>Xbox</h1>;
+  return (
+    <div>
+      <XboxGamesFetch />
+    </div>
+  );
 }
 
 export default Xbox;
