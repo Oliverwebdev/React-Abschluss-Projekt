@@ -1,7 +1,12 @@
 import React from "react";
+import Theme from "./Theme";
 
 function Account() {
-  return <div>Account</div>;
+  return (
+    <div>
+      <Theme />
+    </div>
+  );
 }
 
 export default Account;
