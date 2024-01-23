@@ -12,7 +12,7 @@ const BestGamesEver = () => {
   useEffect(() => {
     const fetchBestGames = async () => {
       try {
-        const response = await fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`);
+        const response = await fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`, { mode: 'cors' } );
         const data = await response.json();
         console.log("API-Antwort:", data);
         if (!data || !data.results || data.results.length === 0) {
@@ -30,9 +30,9 @@ const BestGamesEver = () => {
 
   // Settings for the react-slick carousel
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
+    speed: 300,
     slidesToShow: 3,
     slidesToScroll: 4,
   };

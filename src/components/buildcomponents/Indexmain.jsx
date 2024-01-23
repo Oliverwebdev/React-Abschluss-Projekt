@@ -7,7 +7,9 @@ const Div = styled.div`
   background-color: #333;
   color: white;
   padding: 20px;
+
   text-align: center;
+  
   width: 100%;
 `;
 
@@ -23,6 +25,7 @@ function Indexmain() {
   return (
     <Div>
         <BestGamesEver />
+        <br />
         <br />
         <WorstGamesEver />
     </Div>
