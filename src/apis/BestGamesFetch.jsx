@@ -12,7 +12,7 @@ const BestGamesEver = () => {
   useEffect(() => {
     const fetchBestGames = async () => {
       try {
-        const response = await fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`);
+        const response = await fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`, );
         const data = await response.json();
         console.log("API-Antwort:", data);
         if (!data || !data.results || data.results.length === 0) {
@@ -30,9 +30,9 @@ const BestGamesEver = () => {
 
   // Settings for the react-slick carousel
   const settings = {
-    dots: true,
+    dots: false,
     infinite: true,
-    speed: 500,
+    speed: 300,
     slidesToShow: 3,
     slidesToScroll: 4,
   };
@@ -44,14 +44,14 @@ const BestGamesEver = () => {
           <h2 style={{ margin: "2rem" }}>Die besten Spiele aller Zeiten</h2>
           <Slider {...settings}>
             {bestGames.map((game) => (
-              <div key={game.id}>
+              <div key={game.id} style={{ textAlign: 'center' }}>
                 <h3>{game.name}</h3>
                 <p>Bewertung: {game.metacritic}%</p>
                 {/* Weitere Informationen hier einfügen */}
                 <img
                   src={game.background_image}
                   alt={game.name}
-                  style={{ maxWidth: '150px', maxHeight: '150px' }}
+                  style={{ width: "180px", height: "100px", margin: '0 auto' }}
                 />
               </div>
             ))}
