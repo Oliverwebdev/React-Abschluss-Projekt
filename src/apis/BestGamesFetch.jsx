@@ -47,7 +47,6 @@ const BestGamesEver = () => {
               <div key={game.id} style={{ textAlign: 'center' }}>
                 <h3>{game.name}</h3>
                 <p>Bewertung: {game.metacritic}%</p>
-                {/* Weitere Informationen hier einfügen */}
                 <img
                   src={game.background_image}
                   alt={game.name}
