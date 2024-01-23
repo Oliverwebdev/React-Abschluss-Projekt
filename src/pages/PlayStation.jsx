@@ -1,7 +1,12 @@
 import React from "react";
+import PsGamesFetch from "../apis/PsGamesFetch";
 
 function PlayStation() {
-  return <h1>PlayStation</h1>;
+  return (
+    <div>
+      <PsGamesFetch />
+    </div>
+  );
 }
 
 export default PlayStation;
