@@ -22,9 +22,7 @@ function Indexmain() {
   return (
     <Div>
       <CarouselContainer>
-        {/* Hier werden die Spiele angezeigt */}
         <BestGamesEver />
-        {/* Füge weitere Spiele hinzu, wenn nötig */}
       </CarouselContainer>
     </Div>
   );
