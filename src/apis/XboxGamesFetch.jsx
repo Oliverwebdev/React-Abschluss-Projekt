@@ -11,7 +11,7 @@ const XboxGamesFetch = () => {
         const pageSize = 10; // Opcionális: lekérdezési oldalonkénti játékok száma
 
         const response = await fetch(
-          `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page_size=${pageSize}`
+          `http://localhost:3001/api/games?key=${apiKey}&platforms=${platforms}&page_size=${pageSize}`
         );
 
         if (!response.ok) {
