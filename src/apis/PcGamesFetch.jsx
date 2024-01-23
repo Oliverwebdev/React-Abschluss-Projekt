@@ -43,6 +43,7 @@ const PcGamesFetch = () => {
           <li className="gamesCard" key={game.id}>
             <h2>{game.name}</h2>
             <img
+              className="gameImage"
               src={game.background_image}
               alt={game.name}
               style={{ maxWidth: "300px", maxHeight: "300px" }}
