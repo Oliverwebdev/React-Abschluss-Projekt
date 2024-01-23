@@ -19,7 +19,13 @@ const PcGamesFetch = () => {
         }
 
         const data = await response.json();
-        setGames(data.results);
+
+        // Spiele nach Namen sortieren
+        const sortedGames = data.results.sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+
+        setGames(sortedGames);
       } catch (error) {
         console.error("Error:", error.message);
       }
@@ -30,10 +36,15 @@ const PcGamesFetch = () => {
 
   return (
     <div>
-      <h1>PC Gaames</h1>
+      <h1>PC Games</h1>
       <ul>
         {games.map((game) => (
-          <li key={game.id}>{game.name}</li>
+          <li key={game.id}>
+            <h2>{game.name}</h2>
+            <img src={game.background_image} alt={game.name} />
+            <p>Bewertung: {game.metacritic}%</p>
+            <button>Mehr...</button>
+          </li>
         ))}
       </ul>
     </div>
