@@ -1,6 +1,7 @@
 import React from 'react';
 import BestGamesEver from '../../apis/BestGamesFetch';
 import styled from 'styled-components';
+import WorstGamesEver from '../../apis/WorstGamesEverFetch';
 
 const Div = styled.div`
   background-color: #333;
@@ -21,9 +22,9 @@ const CarouselContainer = styled.div`
 function Indexmain() {
   return (
     <Div>
-      <CarouselContainer>
         <BestGamesEver />
-      </CarouselContainer>
+        <br />
+        <WorstGamesEver />
     </Div>
   );
 }

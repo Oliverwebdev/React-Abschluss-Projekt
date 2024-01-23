@@ -1,6 +1,8 @@
-// Die besten Spiele jemals nach Metacritic-Bewertung
-
 import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const BestGamesEver = () => {
   const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
@@ -26,23 +28,34 @@ const BestGamesEver = () => {
     fetchBestGames();
   }, []);
 
+  // Settings for the react-slick carousel
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 4,
+  };
+
   return (
     <div>
       {bestGames.length > 0 ? (
         <div>
-          <h2>Die besten Spiele aller Zeiten</h2>
-          {bestGames.map((game) => (
-            <div key={game.id}>
-              <h3>{game.name}</h3>
-              <img
-                src={game.background_image}
-                alt={game.name}
-                style={{ maxWidth: '300px', maxHeight: '300px' }}
-              />
-              <p>Bewertung: {game.metacritic}</p>
-              {/* Weitere Informationen hier einfügen */}
-            </div>
-          ))}
+          <h2 style={{ margin: "2rem" }}>Die besten Spiele aller Zeiten</h2>
+          <Slider {...settings}>
+            {bestGames.map((game) => (
+              <div key={game.id}>
+                <h3>{game.name}</h3>
+                <p>Bewertung: {game.metacritic}%</p>
+                {/* Weitere Informationen hier einfügen */}
+                <img
+                  src={game.background_image}
+                  alt={game.name}
+                  style={{ maxWidth: '150px', maxHeight: '150px' }}
+                />
+              </div>
+            ))}
+          </Slider>
         </div>
       ) : (
         <div>Lade...</div>
