@@ -8,7 +8,7 @@ const PcGamesFetch = () => {
       try {
         const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b"; // Cseréld le a saját API kulcsodra
         const platforms = "4"; // PC platform kódja a RAWG API-ban: 4
-        const pageSize = 10; // Opcionális: lekérdezési oldalonkénti játékok száma
+        const pageSize = "100"; // Opcionális: lekérdezési oldalonkénti játékok száma
 
         const response = await fetch(
           `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page_size=${pageSize}`
