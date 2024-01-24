@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
-import SingleGame from './SingelGameFetch'; 
+import SingleGame from "./SingelGameFetch";
+import data from "./datas/worstgamesdata.json";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,24 +13,34 @@ const WorstGamesEver = () => {
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
-    const fetchWorstGames = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${apiUrl}?key=${apiKey}&ordering=metacritic`
+        // Timeout nach 3 Sekunden
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 3000)
         );
-        const data = await response.json();
-        console.log("API-Antwort:", data);
-        if (!data || !data.results || data.results.length === 0) {
-          console.error("Ungültige oder leere Daten empfangen");
-          return;
+
+        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
+          (response) => response.json()
+        );
+
+        const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
+
+        console.log("Daten erhalten:", dataFromApi);
+
+        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
+          console.error("API-Antwort nicht erhalten. Verwende worstgamedata.json.");
+          setWorstGames(data.results);
+        } else {
+          // API-Daten verwenden
+          setWorstGames(dataFromApi.results);
         }
-        setWorstGames(data.results);
       } catch (error) {
         console.error("Fehler bei der API-Anfrage:", error);
       }
     };
 
-    fetchWorstGames();
+    fetchData();
   }, []);
 
   // Settings for the react-slick carousel
@@ -49,28 +60,31 @@ const WorstGamesEver = () => {
     <div>
       {selectedGameId ? (
         <SingleGame gameId={selectedGameId} />
+      ) : worstGames.length > 0 ? (
+        <div>
+          <h2 style={{ margin: "2rem", textAlign: "center" }}>
+            Die schlechtesten Spiele aller Zeiten
+          </h2>
+          <Slider {...settings}>
+            {worstGames.map((game) => (
+              <div
+                key={game.id}
+                style={{ textAlign: "center" }}
+                onClick={() => handleGameClick(game.id)}
+              >
+                <h3>{game.name}</h3>
+                <p>Bewertung: {game.metacritic}%</p>
+                <img
+                  src={game.background_image}
+                  alt={game.name}
+                  style={{ width: "180px", height: "100px", margin: "0 auto" }}
+                />
+              </div>
+            ))}
+          </Slider>
+        </div>
       ) : (
-        worstGames.length > 0 ? (
-          <div>
-            <h2 style={{ margin: "2rem", textAlign: 'center' }}>Die schlechtesten Spiele aller Zeiten</h2>
-            <Slider {...settings}>
-              {worstGames.map((game) => (
-                <div key={game.id} style={{ textAlign: 'center' }} onClick={() => handleGameClick(game.id)}>
-                  <h3>{game.name}</h3>
-                  <p>Bewertung: {game.metacritic}%</p>
-                  {/* Weitere Informationen hier einfügen */}
-                  <img
-                    src={game.background_image}
-                    alt={game.name}
-                    style={{ width: "180px", height: "100px", margin: '0 auto' }}
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div>
-        ) : (
-          <div>Lade...</div>
-        )
+        <div>Lade...</div>
       )}
     </div>
   );
