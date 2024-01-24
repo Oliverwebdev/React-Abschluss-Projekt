@@ -1,46 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import SingleGame from './SingelGameFetch'; 
-
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-
-import { saveAs } from 'file-saver';
-
-const saveDataToFile = (data) => {
-  const blob = new Blob([JSON.stringify(data)], { type: 'application/json' });
-  saveAs(blob, 'data.json');
-};
-
+import  data  from './data'; 
 
 const BestGamesEver = () => {
-  const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
-  const apiUrl = "https://api.rawg.io/api/games";
   const [bestGames, setBestGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
-    const fetchBestGames = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`);
-        const data = await response.json();
-        console.log("API-Antwort:", data);
-        if (!data || !data.results || data.results.length === 0) {
-          console.error("Ungültige oder leere Daten empfangen");
-          return;
-        }
-    
-        // Speichere die Daten in einer lokalen Datei
-        saveDataToFile(data);
-    
+   
         setBestGames(data.results);
       } catch (error) {
-        console.error("Fehler bei der API-Anfrage:", error);
+        console.error("Fehler beim Laden der Daten:", error);
       }
     };
-    
 
-    fetchBestGames();
+    fetchData();
   }, []);
 
   // Settings for the react-slick carousel
@@ -64,7 +39,7 @@ const BestGamesEver = () => {
         bestGames.length > 0 ? (
           <div>
             <h2 style={{ margin: "2rem" }}>Die besten Spiele aller Zeiten</h2>
-            <Slider {...settings}>
+           
               {bestGames.map((game) => (
                 <div key={game.id} style={{ textAlign: 'center' }} onClick={() => handleGameClick(game.id)}>
                   <h3>{game.name}</h3>
@@ -76,7 +51,7 @@ const BestGamesEver = () => {
                   />
                 </div>
               ))}
-            </Slider>
+          
           </div>
         ) : (
           <div>Lade...</div>
