@@ -21,7 +21,7 @@ const PcGamesFetch = () => {
         }
 
         const data = await response.json();
-
+        console.log(data);
         // Spiele nach Namen sortieren
         const sortedGames = data.results.sort((a, b) =>
           a.name.localeCompare(b.name)
