@@ -48,7 +48,7 @@ const PcGamesFetch = () => {
     };
 
     fetchData();
-  }, [pageSize]); // Run only once to fetch all games
+  }, []); // Run only once to fetch all games
 
   // Function to handle displaying details of a selected game
   const handleShowDetails = (gameId) => {
@@ -58,22 +58,22 @@ const PcGamesFetch = () => {
   // Function to handle loading the next page
   const handlePageChange = () => {
     console.log("Next Page button clicked");
-    // Calculate the start and end indices for the next page
+    console.log("Current Page:", currentPage);
+
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
 
-    // Ensure the start index is within bounds
+    console.log("Start Index:", startIndex);
+    console.log("End Index:", endIndex);
+
     if (startIndex < allGames.length) {
-      // Slice the next set of games from the allGames array
       const nextPageGames = allGames.slice(startIndex, endIndex);
+      console.log("Next Page Games:", nextPageGames);
 
-      // Set the games state to the games for the next page
       setGames(nextPageGames);
-
-      // Increment the currentPage state
-      console.log("Current Page:", currentPage);
-      setCurrentPage((prevPage) => prevPage + 1);
+      setCurrentPage(currentPage + 1);
       console.log("New Page:", currentPage + 1);
+      console.log("Current Page:", currentPage);
     }
   };
 
