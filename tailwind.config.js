@@ -10,7 +10,7 @@ export default {
       {
         light: {
           ...require("daisyui/src/theming/themes")["light"],
-          // secondary: "297, 64%, 28%",
+          secondary: "hsl(297, 64%, 28%)",
         },
       },
       {

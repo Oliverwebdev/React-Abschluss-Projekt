@@ -12,50 +12,16 @@ import React from "react";
 function App() {
   return (
     <div className="container">
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header />
-              <Home />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="/pc"
-          element={
-            <>
-              <Header />
-              <PC />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="/ps"
-          element={
-            <>
-              <Header />
-              <PlayStation />
-              <Footer />
-            </>
-          }
-        />
-        <Route
-          path="/xbox"
-          element={
-            <>
-              <Header />
-              <Xbox />
-              <Footer />
-            </>
-          }
-        />
-        <Route path="/:id" element={<h1>All about your Game</h1>} />
-        <Route path="*" element={<h1>Site not Found</h1>} />
-      </Routes>
+      <Header />
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pc" element={<PC />} />
+          <Route path="/ps" element={<PlayStation />} />
+          <Route path="/xbox" element={<Xbox />} />
+        </Routes>
+      </div>
+      <Footer />
     </div>
   );
 }
