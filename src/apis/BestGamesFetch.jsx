@@ -5,6 +5,8 @@ import SingleGame from './SingelGameFetch';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+
+
 const BestGamesEver = () => {
   const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
   const apiUrl = "https://api.rawg.io/api/games";
