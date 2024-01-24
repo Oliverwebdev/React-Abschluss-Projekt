@@ -8,20 +8,13 @@ function SearchBox() {
     <div className="join">
       <div>
         <div>
-          <input
+          <input style={{marginRight: "1rem"}}
             className="input input-bordered join-item"
             placeholder="Search"
           />
         </div>
       </div>
-      <select className="select select-bordered join-item">
-        <option disabled selected>
-          Filter
-        </option>
-        <option>Bispiel 1</option>
-        <option>Beispiel 2</option>
-        <option>Beispiel 3</option>
-      </select>
+     
       <div className="indicator">
         <button className="btn join-item">Search</button>
       </div>
