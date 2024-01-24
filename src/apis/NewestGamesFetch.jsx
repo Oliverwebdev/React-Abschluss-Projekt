@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
+import data from "./datas/newestgamedata.json";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-
 
 const NewestGames = () => {
   const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
@@ -14,27 +13,33 @@ const NewestGames = () => {
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
-    const fetchNewestGames = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${apiUrl}?key=${apiKey}&ordering=released`
+        // Timeout nach 3 Sekunden
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 3000)
         );
-        const data = await response.json();
-        console.log("API-Antwort:", data);
-        if (!data || !data.results || data.results.length === 0) {
-          console.error("Ungültige oder leere Daten empfangen");
-          return;
+
+        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=released`).then(
+          (response) => response.json()
+        );
+
+        const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
+
+        console.log("Daten erhalten:", dataFromApi);
+
+        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
+          console.error("API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei.");
+          setNewestGames(data.results);
+        } else {
+          setNewestGames(dataFromApi.results);
         }
-
-        // saveDataToFile(data);  // Hier den korrekten Funktionsaufruf verwenden
-
-        setNewestGames(data.results);
       } catch (error) {
         console.error("Fehler bei der API-Anfrage:", error);
       }
     };
 
-    fetchNewestGames();
+    fetchData();
   }, []);
 
   // Settings for the react-slick carousel
