@@ -1,40 +1,43 @@
 // Link zu Thema: https://styled-components.com/docs/basics#getting-started
 
+import React from "react";
+
+// Sorry Oli, ich hätte StyleComponents deaktivieren müssen :), weil ich es als css anwenden wollte.
 
 
-import React from 'react';
-import styled from 'styled-components';
 
-// Globale Styles als Komponenten
-const GlobalStyles = createGlobalStyle`
-  body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-  }
-`;
+// import styled from "styled-components";
 
-// Header-Komponente
-const Header = styled.header`
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
-`;
+// // Globale Styles als Komponenten
+// const GlobalStyles = createGlobalStyle`
+//   body {
+//     font-family: 'Arial', sans-serif;
+//     background-color: #f4f4f4;
+//     margin: 0;
+//     padding: 0;
+//   }
+// `;
 
-// Container-Komponente
-const Container = styled.div`
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-`;
+// // Header-Komponente
+// const Header = styled.header`
+//   background-color: #333;
+//   color: white;
+//   padding: 20px;
+//   text-align: center;
+// `;
+
+// // Container-Komponente
+// const Container = styled.div`
+//   max-width: 800px;
+//   margin: 0 auto;
+//   padding: 20px;
+// `;
 
 function App() {
   return (
     <div>
       {/* Global Styles */}
-      <GlobalStyles />
+      {/* <GlobalStyles /> */}
 
       {/* Header */}
       <Header>
@@ -42,9 +45,9 @@ function App() {
       </Header>
 
       {/* Hauptinhalt */}
-      <Container>
+      {/* <Container>
         <p>Hier ist der Hauptinhalt der Seite...</p>
-      </Container>
+      </Container> */}
     </div>
   );
 }

@@ -3,13 +3,17 @@ import Logo from "./Logo";
 import Nav from "./Nav";
 import Account from "./Account";
 
+
 function Header() {
   return (
-    <header>
-      <Logo />
-      <Nav />
-      <Account />
-    </header>
+    <>
+      <header>
+        <Logo />
+        <Nav />
+        {/* <Account /> */}
+    
+      </header>
+    </>
   );
 }
 

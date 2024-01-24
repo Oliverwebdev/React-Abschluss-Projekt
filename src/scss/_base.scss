@@ -8,25 +8,21 @@
 }
 
 img,
-svg
- {
+svg {
   display: block;
   max-width: 100%;
 }
 
-a {
+body {
+  @apply bg-base-100 text-neutral-400;
+  background: url("./../images/bg.png") no-repeat 50px fixed;
+  font-family: "Roboto", sans-serif;
 
-  text-decoration: none;
-
-  &:hover {
-    @apply text-secondary;
-  
+  .container {
+    @apply max-w-screen-xl mx-auto my-0;
   }
 }
 
-body {
-  .container {
-    max-width: 1440px;
-    margin: 0 auto;
-  }
+a {
+  @apply no-underline;
 }

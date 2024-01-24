@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
-import data from "./datas/worstgamesdata.json";
+import data from "./datas/newestgamedata.json";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const WorstGamesEver = () => {
+const NewestGames = () => {
   const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
   const apiUrl = "https://api.rawg.io/api/games";
-  const [worstGames, setWorstGames] = useState([]);
+  const [newestGames, setNewestGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
@@ -20,26 +20,19 @@ const WorstGamesEver = () => {
           setTimeout(() => reject(new Error("Timeout")), 3000)
         );
 
-        const apiPromise = fetch(
-          `${apiUrl}?key=${apiKey}&ordering=metacritic`
-        ).then((response) => response.json());
+        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=released`).then(
+          (response) => response.json()
+        );
 
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
 
         console.log("Daten erhalten:", dataFromApi);
 
-        if (
-          !dataFromApi ||
-          !dataFromApi.results ||
-          dataFromApi.results.length === 0
-        ) {
-          console.error(
-            "API-Antwort nicht erhalten. Verwende worstgamedata.json."
-          );
-          setWorstGames(data.results);
+        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
+          console.error("API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei.");
+          setNewestGames(data.results);
         } else {
-          // API-Daten verwenden
-          setWorstGames(dataFromApi.results);
+          setNewestGames(dataFromApi.results);
         }
       } catch (error) {
         console.error("Fehler bei der API-Anfrage:", error);
@@ -53,7 +46,7 @@ const WorstGamesEver = () => {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 500,
+    speed: 300,
     slidesToShow: 3,
     slidesToScroll: 4,
   };
@@ -66,20 +59,19 @@ const WorstGamesEver = () => {
     <div>
       {selectedGameId ? (
         <SingleGame gameId={selectedGameId} />
-      ) : worstGames.length > 0 ? (
+      ) : newestGames.length > 0 ? (
         <div>
-          <h2 style={{ margin: "2rem", textAlign: "center" }}>
-            Die schlechtesten Spiele aller Zeiten
-          </h2>
+          <h2 style={{ margin: "2rem" }}>Die neuesten Spiele</h2>
           <Slider {...settings}>
-            {worstGames.map((game) => (
+            {newestGames.map((game) => (
               <div
                 key={game.id}
                 style={{ textAlign: "center" }}
                 onClick={() => handleGameClick(game.id)}
               >
                 <h3>{game.name}</h3>
-                <p>Bewertung: {game.metacritic}%</p>
+                <p>Veröffentlichungsdatum: {game.released}</p>
+                {/* Weitere Informationen hier einfügen */}
                 <img
                   src={game.background_image}
                   alt={game.name}
@@ -96,4 +88,4 @@ const WorstGamesEver = () => {
   );
 };
 
-export default WorstGamesEver;
+export default NewestGames;
