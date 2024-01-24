@@ -6,22 +6,35 @@ header {
 
     div {
       @apply text-xl text-secondary font-bold;
+      span {
+        @apply text-lg;
+      }
     }
   }
 
   nav {
     svg {
-      @apply w-8 h-8 fill-current;
-    }
+      @apply w-8 fill-current;
 
+      &:hover {
+        @apply text-secondary; // color of the svg moon
+      }
+    }
     @apply flex gap-4;
 
+
+
     .mobile-nav-icon {
-      @apply md:hidden;
+      @apply md:hidden cursor-pointer;
+
+      &:hover {
+        @apply text-secondary;
+
+      }
     }
 
     ul {
-      @apply justify-between items-center gap-4 hidden md:flex;
+      @apply justify-between items-center gap-3 hidden md:flex;
 
       li {
         @apply relative;
@@ -30,7 +43,7 @@ header {
           @apply text-lg font-semibold  uppercase;
 
           &::after {
-            @apply absolute left-0 bottom-0 w-full h-1 bg-secondary;
+            @apply absolute left-0 bottom-0 w-full h-0.5 bg-secondary ; 
             content: "";
             transform: scaleX(0);
             transform-origin: left;

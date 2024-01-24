@@ -1,5 +1,3 @@
-// Search.jsx
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autosuggest from "react-autosuggest";

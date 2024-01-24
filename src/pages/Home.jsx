@@ -14,9 +14,9 @@ function Home() {
     <div>
       <div className="stage">
         <div className="stage-content">
-          <h1>NOLITA</h1>
+          <h1>OLBERTA GAMES</h1>
           <p>
-            Nolita is a website where you can find the best games for your
+            Olberta is a website where you can find the best games for your
             console. We have a collection of the best games for PC, Xbox and
             PlayStation. You can also find the newest games and the worst games
             ever.
