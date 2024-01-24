@@ -4,6 +4,7 @@ import SingleGameFetch from "./SingelGameFetch";
 const PcGamesFetch = () => {
   // State to store all fetched games
   const [allGames, setAllGames] = useState([]);
+  console.log("allgames.", allGames);
   // State to store games to be displayed on the current page
   const [games, setGames] = useState([]);
   // State to store the ID of the selected game for details view
@@ -11,7 +12,7 @@ const PcGamesFetch = () => {
   // State to keep track of the current page
   const [currentPage, setCurrentPage] = useState(1);
   // Number of games to display per page
-  const pageSize = 40;
+  const pageSize = 10;
 
   // Fetch all games when the component mounts
   useEffect(() => {
@@ -21,7 +22,7 @@ const PcGamesFetch = () => {
         const platforms = "4";
 
         const response = await fetch(
-          `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page_size=${pageSize}`
+          `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page_size=1000`
         );
 
         if (!response.ok) {
@@ -57,26 +58,31 @@ const PcGamesFetch = () => {
 
   // Function to handle loading the next page
   const handlePageChange = () => {
-    console.log("Next Page button clicked");
-    console.log("Current Page:", currentPage);
+    // console.log("Next Page button clicked");
+    // console.log("Current Page:", currentPage);
 
-    const startIndex = (currentPage - 1) * pageSize;
+    const startIndex = currentPage * pageSize;
     const endIndex = startIndex + pageSize;
 
-    console.log("Start Index:", startIndex);
-    console.log("End Index:", endIndex);
+    // console.log("Start Index:", startIndex);
+    // console.log("End Index:", endIndex);
 
     if (startIndex < allGames.length) {
       const nextPageGames = allGames.slice(startIndex, endIndex);
+
       console.log("Next Page Games:", nextPageGames);
 
-      setGames(nextPageGames);
+      setGames([...nextPageGames]);
+
       setCurrentPage(currentPage + 1);
+
       console.log("New Page:", currentPage + 1);
       console.log("Current Page:", currentPage);
     }
+    console.log(endIndex, allGames.length);
   };
 
+  console.log(games);
   return (
     <div className="gamesContainer" style={{ display: "flex" }}>
       <p className="titelGames">PC Games</p>
