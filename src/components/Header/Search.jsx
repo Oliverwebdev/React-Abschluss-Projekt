@@ -18,9 +18,9 @@ function SearchBox() {
         <option disabled selected>
           Filter
         </option>
-        <option>sjdgzfwku</option>
-        <option>sdjfhs</option>
-        <option>sduj</option>
+        <option>Bispiel 1</option>
+        <option>Beispiel 2</option>
+        <option>Beispiel 3</option>
       </select>
       <div className="indicator">
         <button className="btn join-item">Search</button>
