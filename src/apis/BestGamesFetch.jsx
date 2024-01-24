@@ -31,7 +31,7 @@ const BestGamesEver = () => {
         }
     
         // Speichere die Daten in einer lokalen Datei
-        saveDataToFile(data);
+        // saveDataToFile(data);
     
         setBestGames(data.results);
       } catch (error) {
