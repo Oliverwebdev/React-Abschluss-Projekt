@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 
 function Theme() {
-  const [theme, setTheme] = useState(true);
+
+  const savedTheme = localStorage.getItem("theme"); // get the saved theme
+  const initialTheme = savedTheme ? JSON.parse(savedTheme) : true;
+
+  const [theme, setTheme] = useState(initialTheme);
 
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      theme ? "light" : "dark"
-    );
+    localStorage.setItem("theme", JSON.stringify(theme));
+    document.documentElement.setAttribute("data-theme", theme ? "light" : "dark");
   }, [theme]);
   return (
     <label className="swap swap-rotate">
