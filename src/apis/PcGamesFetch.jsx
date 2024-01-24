@@ -90,7 +90,7 @@ const PcGamesFetch = () => {
               className="gameImage"
               src={game.background_image}
               alt={game.name}
-              style={{ maxWidth: "200px", maxHeight: "200px" }}
+              style={{ maxWidth: "300px", maxHeight: "300px" }}
             />
             <p>Bewertung: {game.metacritic}%</p>
             <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
