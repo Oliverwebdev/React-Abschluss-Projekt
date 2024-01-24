@@ -5,11 +5,15 @@ import Account from "./Account";
 
 function Header() {
   return (
+    <> 
     <header>
       <Logo />
       <Nav />
       <Account />
     </header>
+    {/* hier vielleicht noch einen text über das projekt und unsere gedanken dazu // wie ungefähr beim layout*/}
+</>
+
   );
 }
 
