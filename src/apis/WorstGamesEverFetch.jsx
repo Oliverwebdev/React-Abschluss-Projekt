@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
+import data from "./datas/worstgamesdata.json";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-const saveDataToFile = (data) => {
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  saveAs(blob, "data.json");
-};
 
 const WorstGamesEver = () => {
   const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
@@ -17,27 +13,34 @@ const WorstGamesEver = () => {
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
-    const fetchWorstGames = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          `${apiUrl}?key=${apiKey}&ordering=metacritic`
+        // Timeout nach 3 Sekunden
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 3000)
         );
-        const data = await response.json();
-        console.log("API-Antwort:", data);
-        if (!data || !data.results || data.results.length === 0) {
-          console.error("Ungültige oder leere Daten empfangen");
-          return;
+
+        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
+          (response) => response.json()
+        );
+
+        const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
+
+        console.log("Daten erhalten:", dataFromApi);
+
+        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
+          console.error("API-Antwort nicht erhalten. Verwende worstgamedata.json.");
+          setWorstGames(data.results);
+        } else {
+          // API-Daten verwenden
+          setWorstGames(dataFromApi.results);
         }
-
-        saveDataToFile(data);
-
-        setWorstGames(data.results);
       } catch (error) {
         console.error("Fehler bei der API-Anfrage:", error);
       }
     };
 
-    fetchWorstGames();
+    fetchData();
   }, []);
 
   // Settings for the react-slick carousel
@@ -71,7 +74,6 @@ const WorstGamesEver = () => {
               >
                 <h3>{game.name}</h3>
                 <p>Bewertung: {game.metacritic}%</p>
-                {/* Weitere Informationen hier einfügen */}
                 <img
                   src={game.background_image}
                   alt={game.name}
