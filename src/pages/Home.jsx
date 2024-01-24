@@ -1,3 +1,4 @@
+// Home.jsx
 import React from "react";
 
 import Indexmain from "../components/buildcomponents/Indexmain";
