@@ -15,7 +15,6 @@ const WorstGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // API-Anfrage mit Timeout
         const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
           (response) => response.json()
         );
@@ -32,7 +31,6 @@ const WorstGamesEver = () => {
           console.error("API-Antwort nicht erhalten. Verwende worstgamesdata.json.");
           setWorstGames(data.results);
         } else {
-          // API-Daten verwenden
           setWorstGames(dataFromApi.results);
         }
       } catch (error) {

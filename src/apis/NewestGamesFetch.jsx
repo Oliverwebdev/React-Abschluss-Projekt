@@ -13,7 +13,6 @@ const NewestGames = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // API-Anfrage mit Timeout
         const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=released").then(
           (response) => response.json()
         );

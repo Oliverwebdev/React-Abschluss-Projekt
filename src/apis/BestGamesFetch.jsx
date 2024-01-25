@@ -13,7 +13,6 @@ const BestGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // API request with a 3-second timeout
         const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=-metacritic").then(
           (response) => response.json()
         );
@@ -30,7 +29,6 @@ const BestGamesEver = () => {
           console.error("API response not received. Using bestgamesdata.json.");
           setBestGames(bestGamesData.results);
         } else {
-          // Use API data
           setBestGames(dataFromApi.results);
         }
       } catch (error) {
