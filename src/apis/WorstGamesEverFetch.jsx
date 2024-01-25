@@ -15,13 +15,13 @@ const WorstGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Timeout nach 3 Sekunden
-        const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Timeout")), 3000)
-        );
-
+        // API-Anfrage mit Timeout
         const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
           (response) => response.json()
+        );
+
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 3000)
         );
 
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
@@ -29,14 +29,19 @@ const WorstGamesEver = () => {
         console.log("Daten erhalten:", dataFromApi);
 
         if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
-          console.error("API-Antwort nicht erhalten. Verwende worstgamedata.json.");
+          console.error("API-Antwort nicht erhalten. Verwende worstgamesdata.json.");
           setWorstGames(data.results);
         } else {
           // API-Daten verwenden
           setWorstGames(dataFromApi.results);
         }
       } catch (error) {
-        console.error("Fehler bei der API-Anfrage:", error);
+        if (error.message === "Timeout") {
+          console.error("Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus worstgamesdata.json.");
+          setWorstGames(data.results);
+        } else {
+          console.error("Fehler bei der API-Anfrage:", error);
+        }
       }
     };
 
