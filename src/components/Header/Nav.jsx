@@ -45,9 +45,7 @@ function Nav() {
       </div>
 
       <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
+        
         <li>
           <Link to="/pc">PC</Link>
         </li>
