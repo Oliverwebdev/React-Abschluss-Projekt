@@ -28,7 +28,7 @@ const XboxGamesFetch = () => {
 
       // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${xboxPlatform}&page=${page}&page_size=${pageSize}`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${xboxPlatform}&page=${page}&page_size=${pageSize}&ordering=name`
       );
 
       // Überprüfen der HTTP-Antwort
@@ -140,9 +140,9 @@ const XboxGamesFetch = () => {
               className="gameImage"
               src={game.background_image}
               alt={game.name}
-              style={{ maxWidth: "250px", maxHeight: "250px" }}
+              style={{ maxWidth: "250px", maxHeight: "200px" }}
             />
-            <p>Bewertung: {game.metacritic}%</p>
+            {game.metacritic && <p>Bewertung: {game.metacritic}%</p>}
             <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
           </li>
         ))}

@@ -140,7 +140,7 @@ const PcGamesFetch = () => {
               alt={game.name}
               style={{ maxWidth: "300px", maxHeight: "200px" }}
             />
-            <p>Bewertung: {game.metacritic}%</p>
+            {game.metacritic && <p>Bewertung: {game.metacritic}%</p>}
             <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
           </li>
         ))}
