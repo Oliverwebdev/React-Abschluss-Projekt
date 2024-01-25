@@ -2,9 +2,49 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
 import data from "./datas/newestgamedata.json";
+import styled from "styled-components";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+// Styled components
+const Container = styled.div`
+  padding: 20px;
+  text-align: center;
+`;
+
+const Heading = styled.h2`
+  margin: 2rem;
+  text-align: center;
+  font-size: 24px;
+  text-decoration: underline;
+`;
+
+const GameWrapper = styled.div`
+  margin: 0 auto;
+`;
+
+const GameTitle = styled.h3`
+  margin-top: 10px;
+  font-size: 1.3rem;
+
+`;
+
+const ReleaseDate = styled.p`
+  margin-top: 5px;
+`;
+
+const GameImage = styled.img`
+  width: 180px;
+  height: 100px;
+  margin: 0 auto;
+`;
+
+const LoadingMessage = styled.div`
+  text-align: center;
+  font-size: 18px;
+  margin: 20px;
+`;
 
 const NewestGames = () => {
   const [newestGames, setNewestGames] = useState([]);
@@ -13,7 +53,6 @@ const NewestGames = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // API-Anfrage mit Timeout
         const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=released").then(
           (response) => response.json()
         );
@@ -35,7 +74,9 @@ const NewestGames = () => {
         }
       } catch (error) {
         if (error.message === "Timeout") {
-          console.error("Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus der importierten JSON-Datei.");
+          console.error(
+            "Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus der importierten JSON-Datei."
+          );
           setNewestGames(data.results);
         } else {
           console.error("Fehler bei der API-Anfrage:", error);
@@ -47,7 +88,7 @@ const NewestGames = () => {
   }, []);
 
   // Settings for the react-slick carousel
-  const settings = {
+  const sliderSettings = {
     dots: false,
     infinite: true,
     speed: 300,
@@ -60,35 +101,27 @@ const NewestGames = () => {
   };
 
   return (
-    <div>
+    <Container>
       {selectedGameId ? (
         <SingleGame gameId={selectedGameId} />
       ) : newestGames.length > 0 ? (
         <div>
-          <h2 style={{ margin: "2rem" }}>Die neuesten Spiele</h2>
-          <Slider {...settings}>
+          <Heading>Die neuesten Spiele</Heading>
+          <Slider {...sliderSettings}>
             {newestGames.map((game) => (
-              <div
-                key={game.id}
-                style={{ textAlign: "center" }}
-                onClick={() => handleGameClick(game.id)}
-              >
-                <h3>{game.name}</h3>
-                <p>Veröffentlichungsdatum: {game.released}</p>
-                {/* Weitere Informationen hier einfügen */}
-                <img
-                  src={game.background_image}
-                  alt={game.name}
-                  style={{ width: "180px", height: "100px", margin: "0 auto" }}
-                />
-              </div>
+              <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
+                <GameTitle>{game.name}</GameTitle>
+                <ReleaseDate>Verfügbare Stores:{" "}
+            {game?.stores.map((store) => store.store.name).join(", ")}</ReleaseDate>
+                <GameImage src={game.background_image} alt={game.name} />
+              </GameWrapper>
             ))}
           </Slider>
         </div>
       ) : (
-        <div>Lade...</div>
+        <LoadingMessage>Lade...</LoadingMessage>
       )}
-    </div>
+    </Container>
   );
 };
 

@@ -2,9 +2,50 @@ import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import SingleGame from './SingelGameFetch'; 
 import bestGamesData from './datas/bestgamesdata.json';
+import styled from 'styled-components';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+// Styled components
+const Container = styled.div`
+  padding: 20px;
+  text-align: center;
+`;
+
+const Heading = styled.h2`
+  margin: 2rem;
+  text-align: center;
+  font-size: 24px;
+  text-decoration: underline;
+
+
+`;
+
+const GameWrapper = styled.div`
+  margin: 0 auto;
+`;
+
+const GameTitle = styled.h3`
+  margin-top: 10px;
+  font-size: 1.3rem;
+`;
+
+const MetacriticRating = styled.p`
+  margin-top: 5px;
+`;
+
+const GameImage = styled.img`
+  width: 180px;
+  height: 100px;
+  margin: 0 auto;
+`;
+
+const LoadingMessage = styled.div`
+  text-align: center;
+  font-size: 18px;
+  margin: 20px;
+`;
 
 const BestGamesEver = () => {
   const [bestGames, setBestGames] = useState([]);
@@ -13,7 +54,6 @@ const BestGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // API request with a 3-second timeout
         const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=-metacritic").then(
           (response) => response.json()
         );
@@ -30,7 +70,6 @@ const BestGamesEver = () => {
           console.error("API response not received. Using bestgamesdata.json.");
           setBestGames(bestGamesData.results);
         } else {
-          // Use API data
           setBestGames(dataFromApi.results);
         }
       } catch (error) {
@@ -47,7 +86,7 @@ const BestGamesEver = () => {
   }, []);
 
   // Settings for the react-slick carousel
-  const settings = {
+  const sliderSettings = {
     dots: false,
     infinite: true,
     speed: 300,
@@ -60,32 +99,27 @@ const BestGamesEver = () => {
   };
 
   return (
-    <div>
+    <Container>
       {selectedGameId ? (
         <SingleGame gameId={selectedGameId} />
+      ) : bestGames.length > 0 ? (
+        <div>
+          <Heading>Die besten Spiele aller Zeiten</Heading>
+          <Slider {...sliderSettings}>
+            {bestGames.map((game) => (
+              <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
+                <GameTitle>{game.name}</GameTitle>
+                <MetacriticRating>Bewertung: {game.metacritic}%</MetacriticRating>
+                
+                <GameImage src={game.background_image} alt={game.name} />
+              </GameWrapper>
+            ))}
+          </Slider>
+        </div>
       ) : (
-        bestGames.length > 0 ? (
-          <div>
-            <h2 style={{ margin: "2rem" }}>Die besten Spiele aller Zeiten</h2>
-            <Slider {...settings}>
-              {bestGames.map((game) => (
-                <div key={game.id} style={{ textAlign: 'center' }} onClick={() => handleGameClick(game.id)}>
-                  <h3>{game.name}</h3>
-                  <p>Bewertung: {game.metacritic}%</p>
-                  <img
-                    src={game.background_image}
-                    alt={game.name}
-                    style={{ width: "180px", height: "100px", margin: '0 auto' }}
-                  />
-                </div>
-              ))}
-            </Slider>
-          </div>
-        ) : (
-          <div>Lade...</div>
-        )
+        <LoadingMessage>Lade...</LoadingMessage>
       )}
-    </div>
+    </Container>
   );
 };
 
