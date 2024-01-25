@@ -7,36 +7,34 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const BestGamesEver = () => {
-  const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
-  const apiUrl = "https://api.rawg.io/api/games";
   const [bestGames, setBestGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Timeout nach 3 Sekunden
+        // API request with a 3-second timeout
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
         );
 
-        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=-metacritic`).then(
+        const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=-metacritic").then(
           (response) => response.json()
         );
 
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
 
-        console.log("API-Antwort:", dataFromApi);
+        console.log("API response:", dataFromApi);
 
         if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
-          console.error("API-Antwort nicht erhalten. Verwende bestgamesdata.json.");
+          console.error("API response not received. Using bestgamesdata.json.");
           setBestGames(bestGamesData.results);
         } else {
-          
+          // Use API data
           setBestGames(dataFromApi.results);
         }
       } catch (error) {
-        console.error("Fehler bei der API-Anfrage:", error);
+        console.error("Error in API request:", error);
       }
     };
 
@@ -87,3 +85,4 @@ const BestGamesEver = () => {
 };
 
 export default BestGamesEver;
+

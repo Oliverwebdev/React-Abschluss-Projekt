@@ -7,21 +7,19 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const NewestGames = () => {
-  const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
-  const apiUrl = "https://api.rawg.io/api/games";
   const [newestGames, setNewestGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Timeout nach 3 Sekunden
-        const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Timeout")), 3000)
+        // API-Anfrage mit Timeout
+        const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=released").then(
+          (response) => response.json()
         );
 
-        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=released`).then(
-          (response) => response.json()
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 3000)
         );
 
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
@@ -32,10 +30,16 @@ const NewestGames = () => {
           console.error("API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei.");
           setNewestGames(data.results);
         } else {
+          console.log("Daten von der API erhalten.");
           setNewestGames(dataFromApi.results);
         }
       } catch (error) {
-        console.error("Fehler bei der API-Anfrage:", error);
+        if (error.message === "Timeout") {
+          console.error("Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus der importierten JSON-Datei.");
+          setNewestGames(data.results);
+        } else {
+          console.error("Fehler bei der API-Anfrage:", error);
+        }
       }
     };
 
