@@ -14,12 +14,12 @@ const BestGamesEver = () => {
     const fetchData = async () => {
       try {
         // API request with a 3-second timeout
-        const timeoutPromise = new Promise((_, reject) =>
-          setTimeout(() => reject(new Error("Timeout")), 3000)
-        );
-
         const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=-metacritic").then(
           (response) => response.json()
+        );
+
+        const timeoutPromise = new Promise((_, reject) =>
+          setTimeout(() => reject(new Error("Timeout")), 3000)
         );
 
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
@@ -34,7 +34,12 @@ const BestGamesEver = () => {
           setBestGames(dataFromApi.results);
         }
       } catch (error) {
-        console.error("Error in API request:", error);
+        if (error.message === "Timeout") {
+          console.error("The API request has timed out. Using data from bestgamesdata.json.");
+          setBestGames(bestGamesData.results);
+        } else {
+          console.error("Error in API request:", error);
+        }
       }
     };
 
@@ -85,4 +90,3 @@ const BestGamesEver = () => {
 };
 
 export default BestGamesEver;
-
