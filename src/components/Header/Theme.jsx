@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 function Theme() {
-
   const savedTheme = localStorage.getItem("theme"); // get the saved theme
   const initialTheme = savedTheme ? JSON.parse(savedTheme) : true;
 
@@ -9,7 +8,10 @@ function Theme() {
 
   useEffect(() => {
     localStorage.setItem("theme", JSON.stringify(theme));
-    document.documentElement.setAttribute("data-theme", theme ? "light" : "dark");
+    document.documentElement.setAttribute(
+      "data-theme",
+      theme ? "light" : "dark"
+    );
   }, [theme]);
   return (
     <label className="swap swap-rotate">
@@ -24,7 +26,7 @@ function Theme() {
 
       {/* sun icon */}
       <svg
-        className="swap-on fill-current w-10 h-10"
+        className="swap-on"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -33,7 +35,7 @@ function Theme() {
 
       {/* moon icon */}
       <svg
-        className="swap-off fill-current w-10 h-10"
+        className="swap-off"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >

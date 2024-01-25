@@ -20,16 +20,22 @@ const WorstGamesEver = () => {
           setTimeout(() => reject(new Error("Timeout")), 3000)
         );
 
-        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
-          (response) => response.json()
-        );
+        const apiPromise = fetch(
+          `${apiUrl}?key=${apiKey}&ordering=metacritic`
+        ).then((response) => response.json());
 
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
 
         console.log("Daten erhalten:", dataFromApi);
 
-        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
-          console.error("API-Antwort nicht erhalten. Verwende worstgamedata.json.");
+        if (
+          !dataFromApi ||
+          !dataFromApi.results ||
+          dataFromApi.results.length === 0
+        ) {
+          console.error(
+            "API-Antwort nicht erhalten. Verwende worstgamedata.json."
+          );
           setWorstGames(data.results);
         } else {
           // API-Daten verwenden

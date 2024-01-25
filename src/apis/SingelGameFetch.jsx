@@ -1,3 +1,5 @@
+// SingelGameFetch.jsx
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -62,9 +64,7 @@ const SingleGame = ({ gameId }) => {
     fetchGame();
   }, [gameId]);
 
-  const handleBackButtonClick = () => {
-    setGame(previousGame);
-  };
+  
 
   return (
     <GameContainer>
@@ -90,7 +90,7 @@ const SingleGame = ({ gameId }) => {
             Verfügbare Stores:{" "}
             {game?.stores.map((store) => store.store.name).join(", ")}
           </GameDetail>
-          <button onClick={handleBackButtonClick}>Zurück</button>
+          
         </div>
       ) : (
         <div>Lade...</div>
