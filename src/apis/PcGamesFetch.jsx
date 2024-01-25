@@ -49,7 +49,36 @@ const PcGamesFetch = () => {
 
       return sortedPageGames;
     } catch (error) {
-      console.error("Fehler beim Abrufen der Daten:", error.message);
+      console.error(
+        "Fehler beim Abrufen der Daten über die API:",
+        error.message
+      );
+      // Bei einem Fehler auf die lokale Datei zurückgreifen
+      return fetchLocalGameData();
+    }
+  };
+
+  // Funktion zum Abrufen der lokalen Spieldaten
+  const fetchLocalGameData = async () => {
+    try {
+      // Lokale Datei pcGamesLocal.json abrufen
+      const localGameDataResponse = await fetch("./datas/pcGamesLocal.json");
+
+      if (!localGameDataResponse.ok) {
+        throw new Error(
+          `Fehler beim Abrufen der lokalen Daten: ${localGameDataResponse.status}`
+        );
+      }
+
+      // JSON-Daten aus der lokalen Datei abrufen
+      const localGameData = await localGameDataResponse.json();
+      console.log(localGameData);
+      return localGameData.results;
+    } catch (error) {
+      console.error(
+        "Fehler beim Abrufen der lokalen Spieldaten:",
+        error.message
+      );
       return [];
     }
   };
@@ -62,66 +91,47 @@ const PcGamesFetch = () => {
   // Funktion zum Laden der nächsten Seite
   const handlePageChange = async () => {
     const nextPage = currentPage + 1;
-
-    try {
-      // Daten für die nächste Seite abrufen
-      const nextPageGames = await fetchPageData(nextPage);
-
-      // Überprüfen, ob neue Spiele auf der nächsten Seite vorhanden sind
-      if (nextPageGames.length > 0) {
-        setCurrentPage(nextPage);
-        setGames(nextPageGames);
-      } else {
-        console.log("Keine weiteren Spiele auf der nächsten Seite verfügbar.");
-      }
-    } catch (error) {
-      console.error(
-        "Fehler beim Abrufen der Daten für die nächste Seite:",
-        error.message
-      );
-    }
+    const nextPageGames = await fetchPageData(nextPage);
+    updateGamesState(nextPageGames, nextPage);
   };
 
   // Funktion zum Laden der vorherigen Seite
   const handlePagePrev = async () => {
     const prevPage = currentPage - 1;
-
     if (prevPage > 0) {
-      try {
-        // Daten für die vorherige Seite abrufen
-        const prevPageGames = await fetchPageData(prevPage);
-
-        // Überprüfen, ob Spiele auf der vorherigen Seite vorhanden sind
-        if (prevPageGames.length > 0) {
-          setCurrentPage(prevPage);
-          setGames(prevPageGames);
-        } else {
-          console.log("Keine Spiele auf der vorherigen Seite verfügbar.");
-        }
-      } catch (error) {
-        console.error(
-          "Fehler beim Abrufen der Daten für die vorherige Seite:",
-          error.message
-        );
-      }
+      const prevPageGames = await fetchPageData(prevPage);
+      updateGamesState(prevPageGames, prevPage);
     } else {
       console.log("Bereits auf der ersten Seite.");
     }
   };
 
+  // Funktion zum Aktualisieren des Zustands mit Spielen und Seitenzahl
+  const updateGamesState = (newGames, newPage) => {
+    if (newGames.length > 0) {
+      setCurrentPage(newPage);
+      setGames(newGames);
+    } else {
+      console.log(`Keine Spiele auf der Seite ${newPage} verfügbar.`);
+    }
+  };
+
   // Initiale Daten abrufen, wenn die Komponente montiert wird
   useEffect(() => {
-    fetchPageData(currentPage)
-      .then((initialPageGames) => {
+    const fetchData = async (page) => {
+      try {
+        const initialPageGames = await fetchPageData(page);
         setAllGames(initialPageGames);
         setGames(initialPageGames);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(
           "Fehler beim Abrufen der initialen Daten:",
           error.message
         );
-      });
+      }
+    };
+
+    fetchData(currentPage);
   }, [currentPage]);
 
   return (
@@ -154,7 +164,7 @@ const PcGamesFetch = () => {
         />
       )}
 
-      {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
+      {/* Paginierung - Schaltfläche zum Laden der vorherigen Seite */}
       <div className="pagination">
         <button onClick={handlePagePrev}>Prev Page</button>
         {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
