@@ -8,7 +8,19 @@ footer {
       @apply flex justify-center flex-wrap gap-8;
 
       img {
-        @apply m-auto;
+        @apply m-auto mb-10
+      }
+    }
+  }
+}
+
+[data-theme="light"] {
+  footer {
+    .game-container{
+      ul{
+        img{
+          @apply bg-gray-700
+        }
       }
     }
   }
