@@ -20,7 +20,6 @@ const PcGamesFetch = () => {
       try {
         const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
         const platforms = "4";
-
         const response = await fetch(
           `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page_size=1000`
         );
@@ -70,16 +69,29 @@ const PcGamesFetch = () => {
     if (startIndex < allGames.length) {
       const nextPageGames = allGames.slice(startIndex, endIndex);
 
-      console.log("Next Page Games:", nextPageGames);
+      // console.log("Next Page Games:", nextPageGames);
+
+      setCurrentPage((prevPage) => prevPage + 1);
 
       setGames([...nextPageGames]);
-
-      setCurrentPage(currentPage + 1);
-
-      console.log("New Page:", currentPage + 1);
-      console.log("Current Page:", currentPage);
+      // console.log("New Page:", currentPage + 1);
+      // console.log("Current Page:", currentPage);
     }
-    console.log(endIndex, allGames.length);
+    console.log("kontroll", endIndex, allGames.length);
+  };
+  //PrevSite
+  const handlePagePrev = () => {
+    const prevPage = currentPage - 1;
+
+    if (prevPage > 0) {
+      const startIndex = (prevPage - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+
+      const prevPageGames = allGames.slice(startIndex, endIndex);
+
+      setCurrentPage(prevPage);
+      setGames([...prevPageGames]);
+    }
   };
 
   console.log(games);
@@ -113,7 +125,9 @@ const PcGamesFetch = () => {
       )}
 
       {/* Pagination - Button to load the next page */}
+
       <div className="pagination">
+        <button onClick={handlePagePrev}>Prev Page</button>
         <button onClick={handlePageChange}>Next Page</button>
       </div>
     </div>
