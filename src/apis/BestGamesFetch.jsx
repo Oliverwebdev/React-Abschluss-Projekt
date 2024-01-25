@@ -18,8 +18,6 @@ const Heading = styled.h2`
   text-align: center;
   font-size: 24px;
   text-decoration: underline;
-
-
 `;
 
 const GameWrapper = styled.div`
@@ -111,7 +109,11 @@ const BestGamesEver = () => {
                 <GameTitle>{game.name}</GameTitle>
                 <MetacriticRating>Bewertung: {game.metacritic}%</MetacriticRating>
                 
-                <GameImage src={game.background_image} alt={game.name} />
+                {game.background_image && !game.background_image.includes("error") ? (
+                  <GameImage src={game.background_image} alt={game.name} />
+                ) : (
+                  <p>Kein Bild verfügbar</p>
+                )}
               </GameWrapper>
             ))}
           </Slider>
