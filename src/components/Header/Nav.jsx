@@ -25,11 +25,7 @@ function Nav() {
           tabIndex={0}
           className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-25  -translate-y-1 right-1  top-7"
         >
-          <li className="w-full h-7">
-            <Link to="/" className="text-sm">
-              Home
-            </Link>
-          </li>
+          
           <li className="w-full h-7">
             <Link to="/pc" className="text-sm">
               PC
