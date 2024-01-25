@@ -1,0 +1,15 @@
+footer {
+  @apply py-8;
+
+  .game-container {
+    @apply grid gap-4 text-center;
+
+    ul {
+      @apply flex justify-center flex-wrap gap-8;
+
+      img {
+        @apply m-auto;
+      }
+    }
+  }
+}
