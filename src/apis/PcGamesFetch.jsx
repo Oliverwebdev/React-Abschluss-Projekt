@@ -2,111 +2,134 @@ import React, { useEffect, useState } from "react";
 import SingleGameFetch from "./SingelGameFetch";
 
 const PcGamesFetch = () => {
-  // State to store all fetched games
+  // Zustand zum Speichern aller heruntergeladenen Spiele
   const [allGames, setAllGames] = useState([]);
-  console.log("allgames.", allGames);
-  // State to store games to be displayed on the current page
+
+  // Zustand zum Speichern der Spiele, die auf der aktuellen Seite angezeigt werden sollen
   const [games, setGames] = useState([]);
-  // State to store the ID of the selected game for details view
+
+  // Zustand zur Speicherung der ID des ausgewählten Spiels für die Detailansicht
   const [selectedGameId, setSelectedGameId] = useState(null);
-  // State to keep track of the current page
+
+  // Zustand zur Verfolgung der aktuellen Seite
   const [currentPage, setCurrentPage] = useState(1);
-  // Number of games to display per page
+
+  // Anzahl der anzuzeigenden Spiele pro Seite
   const pageSize = 50;
 
-  // Fetch all games when the component mounts
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
-        const platforms = "4";
-        const totalPages = 1000; // for example, fetch 10 pages
+  // Funktion zum Abrufen von Daten für eine bestimmte Seite
+  const fetchPageData = async (page) => {
+    try {
+      // API-Schlüssel und Plattform einstellen
+      const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
+      const platforms = "4";
 
-        let allFetchedGames = [];
+      // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
+      const response = await fetch(
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${pageSize}`
+      );
 
-        for (let page = 1; page <= totalPages; page++) {
-          const response = await fetch(
-            `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${pageSize}`
-          );
-
-          if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-          }
-
-          const data = await response.json();
-
-          if (!data.results) {
-            throw new Error("Invalid data format");
-          }
-
-          allFetchedGames = [...allFetchedGames, ...data.results];
-          console.log("allFetchedGames", allFetchedGames);
-        }
-
-        const sortedGames = allFetchedGames.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
-
-        setAllGames(sortedGames);
-        setGames(sortedGames.slice(0, pageSize));
-      } catch (error) {
-        console.error("Error fetching data:", error.message);
+      // Überprüfen der HTTP-Antwort
+      if (!response.ok) {
+        throw new Error(`Fehler: ${response.status}`);
       }
-    };
 
-    fetchData();
-  }, []); // Run only once to fetch all games
+      // JSON-Daten abrufen
+      const data = await response.json();
 
-  // Function to handle displaying details of a selected game
+      // Überprüfen der Daten
+      if (!data.results) {
+        throw new Error("Ungültiges Datenformat");
+      }
+
+      // Spiele nach Name sortieren
+      const sortedPageGames = data.results.sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+
+      return sortedPageGames;
+    } catch (error) {
+      console.error("Fehler beim Abrufen der Daten:", error.message);
+      return [];
+    }
+  };
+
+  // Funktion zum Anzeigen der Details eines ausgewählten Spiels
   const handleShowDetails = (gameId) => {
     setSelectedGameId(gameId);
   };
 
-  // Function to handle loading the next page
-  const handlePageChange = () => {
-    // console.log("Next Page button clicked");
-    // console.log("Current Page:", currentPage);
+  // Funktion zum Laden der nächsten Seite
+  const handlePageChange = async () => {
+    const nextPage = currentPage + 1;
 
-    const startIndex = currentPage * pageSize;
-    const endIndex = startIndex + pageSize;
+    try {
+      // Daten für die nächste Seite abrufen
+      const nextPageGames = await fetchPageData(nextPage);
 
-    // console.log("Start Index:", startIndex);
-    // console.log("End Index:", endIndex);
-
-    if (startIndex < allGames.length) {
-      const nextPageGames = allGames.slice(startIndex, endIndex);
-
-      // console.log("Next Page Games:", nextPageGames);
-
-      setCurrentPage((prevPage) => prevPage + 1);
-
-      setGames([...nextPageGames]);
-      // console.log("New Page:", currentPage + 1);
-      // console.log("Current Page:", currentPage);
+      // Überprüfen, ob neue Spiele auf der nächsten Seite vorhanden sind
+      if (nextPageGames.length > 0) {
+        setCurrentPage(nextPage);
+        setGames(nextPageGames);
+      } else {
+        console.log("Keine weiteren Spiele auf der nächsten Seite verfügbar.");
+      }
+    } catch (error) {
+      console.error(
+        "Fehler beim Abrufen der Daten für die nächste Seite:",
+        error.message
+      );
     }
-    console.log("kontroll", endIndex, allGames.length);
   };
-  //PrevSite
-  const handlePagePrev = () => {
+
+  // Funktion zum Laden der vorherigen Seite
+  const handlePagePrev = async () => {
     const prevPage = currentPage - 1;
 
     if (prevPage > 0) {
-      const startIndex = (prevPage - 1) * pageSize;
-      const endIndex = startIndex + pageSize;
+      try {
+        // Daten für die vorherige Seite abrufen
+        const prevPageGames = await fetchPageData(prevPage);
 
-      const prevPageGames = allGames.slice(startIndex, endIndex);
-
-      setCurrentPage(prevPage);
-      setGames([...prevPageGames]);
+        // Überprüfen, ob Spiele auf der vorherigen Seite vorhanden sind
+        if (prevPageGames.length > 0) {
+          setCurrentPage(prevPage);
+          setGames(prevPageGames);
+        } else {
+          console.log("Keine Spiele auf der vorherigen Seite verfügbar.");
+        }
+      } catch (error) {
+        console.error(
+          "Fehler beim Abrufen der Daten für die vorherige Seite:",
+          error.message
+        );
+      }
+    } else {
+      console.log("Bereits auf der ersten Seite.");
     }
   };
 
-  console.log(games);
+  // Initiale Daten abrufen, wenn die Komponente montiert wird
+  useEffect(() => {
+    fetchPageData(currentPage)
+      .then((initialPageGames) => {
+        setAllGames(initialPageGames);
+        setGames(initialPageGames);
+      })
+      .catch((error) => {
+        console.error(
+          "Fehler beim Abrufen der initialen Daten:",
+          error.message
+        );
+      });
+  }, [currentPage]);
+
   return (
     <div className="gamesContainer" style={{ display: "flex" }}>
-      <p className="titelGames">PC Games</p>
+      <p className="titelGames">PC Spiele</p>
+      <p className="gameCount">{allGames.length} Titel</p>
 
-      {/* Display the list of games */}
+      {/* Liste der Spiele anzeigen */}
       <ul className="gamesList">
         {games.map((game) => (
           <li className="gamesCard" key={game.id}>
@@ -123,7 +146,7 @@ const PcGamesFetch = () => {
         ))}
       </ul>
 
-      {/* Display details of the selected game if any */}
+      {/* Details des ausgewählten Spiels anzeigen, wenn vorhanden */}
       {selectedGameId && (
         <SingleGameFetch
           gameId={selectedGameId}
@@ -131,10 +154,10 @@ const PcGamesFetch = () => {
         />
       )}
 
-      {/* Pagination - Button to load the next page */}
-
+      {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
       <div className="pagination">
         <button onClick={handlePagePrev}>Prev Page</button>
+        {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
         <button onClick={handlePageChange}>Next Page</button>
       </div>
     </div>
