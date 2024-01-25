@@ -27,7 +27,6 @@ const GameWrapper = styled.div`
 const GameTitle = styled.h3`
   margin-top: 10px;
   font-size: 1.3rem;
-
 `;
 
 const ReleaseDate = styled.p`
@@ -112,8 +111,13 @@ const NewestGames = () => {
               <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
                 <GameTitle>{game.name}</GameTitle>
                 <ReleaseDate>Verfügbare Stores:{" "}
-            {game?.stores.map((store) => store.store.name).join(", ")}</ReleaseDate>
-                <GameImage src={game.background_image} alt={game.name} />
+                  {game?.stores.map((store) => store.store.name).join(", ")}
+                </ReleaseDate>
+                {game.background_image && !game.background_image.includes("error") ? (
+                  <GameImage src={game.background_image} alt={game.name} />
+                ) : (
+                  <p>Kein Bild verfügbar</p>
+                )}
               </GameWrapper>
             ))}
           </Slider>

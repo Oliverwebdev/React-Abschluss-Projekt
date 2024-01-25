@@ -18,8 +18,6 @@ const Heading = styled.h2`
   text-align: center;
   font-size: 24px;
   text-decoration: underline;
-
-
 `;
 
 const GameWrapper = styled.div`
@@ -29,7 +27,6 @@ const GameWrapper = styled.div`
 const GameTitle = styled.h3`
   margin-top: 10px;
   font-size: 1.3rem;
-
 `;
 
 const GameRating = styled.p`
@@ -115,10 +112,13 @@ const WorstGamesEver = () => {
               <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
                 <GameTitle>{game.name}</GameTitle>
                 <GameRating> Verfügbare Stores:{" "}
-            {game?.stores.map((store) => store.store.name).join(", ")}</GameRating>
-
-
-                <GameImage src={game.background_image} alt={game.name} />
+                  {game?.stores.map((store) => store.store.name).join(", ")}
+                </GameRating>
+                {game.background_image && !game.background_image.includes("error") ? (
+                  <GameImage src={game.background_image} alt={game.name} />
+                ) : (
+                  <p>Kein Bild verfügbar</p>
+                )}
               </GameWrapper>
             ))}
           </Slider>
