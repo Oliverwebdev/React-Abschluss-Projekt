@@ -62,14 +62,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  margin-top: 15px;
+  width: 25%;
   height: 50px;
   background-color: transparent;
-  border: none;
-  cursor: pointer;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease-in-out;
+  cursor: pointer;
   &:hover {
+    transform: scale(1.05);
     color: rgb(244, 59, 59);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   }
 }
 .pagination {
