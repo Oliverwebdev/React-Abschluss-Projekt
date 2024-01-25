@@ -12,7 +12,7 @@ const PcGamesFetch = () => {
   // State to keep track of the current page
   const [currentPage, setCurrentPage] = useState(1);
   // Number of games to display per page
-  const pageSize = 10;
+  const pageSize = 50;
 
   // Fetch all games when the component mounts
   useEffect(() => {
@@ -20,26 +20,33 @@ const PcGamesFetch = () => {
       try {
         const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
         const platforms = "4";
-        const response = await fetch(
-          `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page_size=1000`
-        );
+        const totalPages = 1000; // for example, fetch 10 pages
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
+        let allFetchedGames = [];
+
+        for (let page = 1; page <= totalPages; page++) {
+          const response = await fetch(
+            `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${pageSize}`
+          );
+
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+          }
+
+          const data = await response.json();
+
+          if (!data.results) {
+            throw new Error("Invalid data format");
+          }
+
+          allFetchedGames = [...allFetchedGames, ...data.results];
+          console.log("allFetchedGames", allFetchedGames);
         }
 
-        const data = await response.json();
-
-        if (!data.results) {
-          throw new Error("Invalid data format");
-        }
-
-        // Sort games by name
-        const sortedGames = data.results.sort((a, b) =>
+        const sortedGames = allFetchedGames.sort((a, b) =>
           a.name.localeCompare(b.name)
         );
 
-        // Set all games and display the first page initially
         setAllGames(sortedGames);
         setGames(sortedGames.slice(0, pageSize));
       } catch (error) {
