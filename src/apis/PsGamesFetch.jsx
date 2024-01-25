@@ -140,9 +140,9 @@ const PsGamesFetch = () => {
               className="gameImage"
               src={game.background_image}
               alt={game.name}
-              style={{ maxWidth: "250px", maxHeight: "250px" }}
+              style={{ maxWidth: "250px", maxHeight: "200px" }}
             />
-            <p>Bewertung: {game.metacritic}%</p>
+            {game.metacritic && <p>Bewertung: {game.metacritic}%</p>}
             <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
           </li>
         ))}
