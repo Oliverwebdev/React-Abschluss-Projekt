@@ -26,7 +26,7 @@ const PcGamesFetch = () => {
 
       // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${pageSize}`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${pageSize}&ordering=name`
       );
 
       // Überprüfen der HTTP-Antwort
@@ -138,7 +138,7 @@ const PcGamesFetch = () => {
               className="gameImage"
               src={game.background_image}
               alt={game.name}
-              style={{ maxWidth: "300px", maxHeight: "300px" }}
+              style={{ maxWidth: "300px", maxHeight: "200px" }}
             />
             <p>Bewertung: {game.metacritic}%</p>
             <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>

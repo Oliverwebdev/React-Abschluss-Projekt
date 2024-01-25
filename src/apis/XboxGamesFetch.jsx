@@ -28,7 +28,7 @@ const XboxGamesFetch = () => {
 
       // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platform}&page=${page}&page_size=${pageSize}`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${xboxPlatform}&page=${page}&page_size=${pageSize}`
       );
 
       // Überprüfen der HTTP-Antwort
