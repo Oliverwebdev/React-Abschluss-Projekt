@@ -7,6 +7,10 @@ import styled from 'styled-components';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+
+
+// ###################################################
+
 // Styled components
 const Container = styled.div`
   padding: 20px;
@@ -44,6 +48,11 @@ const LoadingMessage = styled.div`
   font-size: 18px;
   margin: 20px;
 `;
+// ###################################################
+
+
+// Fetching data from the API
+// ###################################################
 
 const BestGamesEver = () => {
   const [bestGames, setBestGames] = useState([]);
@@ -82,6 +91,7 @@ const BestGamesEver = () => {
 
     fetchData();
   }, []);
+// ###################################################
 
   // Settings for the react-slick carousel
   const sliderSettings = {
@@ -92,10 +102,17 @@ const BestGamesEver = () => {
     slidesToScroll: 4,
   };
 
+
+
+
   const handleGameClick = (gameId) => {
     setSelectedGameId(gameId);
   };
 
+
+
+
+// ###################################################
   return (
     <Container>
       {selectedGameId ? (
