@@ -64,8 +64,6 @@ const SingleGame = ({ gameId }) => {
     fetchGame();
   }, [gameId]);
 
-  
-
   return (
     <GameContainer>
       {game ? (
@@ -90,7 +88,6 @@ const SingleGame = ({ gameId }) => {
             Verfügbare Stores:{" "}
             {game?.stores.map((store) => store.store.name).join(", ")}
           </GameDetail>
-          
         </div>
       ) : (
         <div>Lade...</div>

@@ -17,7 +17,7 @@ const Heading = styled.h2`
   margin: 2rem;
   text-align: center;
   font-size: 24px;
-  text-decoration: underline;
+  // text-decoration: underline;
 `;
 
 const GameWrapper = styled.div`
@@ -54,9 +54,9 @@ const WorstGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
-          (response) => response.json()
-        );
+        const apiPromise = fetch(
+          `${apiUrl}?key=${apiKey}&ordering=metacritic`
+        ).then((response) => response.json());
 
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
@@ -66,8 +66,14 @@ const WorstGamesEver = () => {
 
         console.log("Daten erhalten:", dataFromApi);
 
-        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
-          console.error("API-Antwort nicht erhalten. Verwende worstgamesdata.json.");
+        if (
+          !dataFromApi ||
+          !dataFromApi.results ||
+          dataFromApi.results.length === 0
+        ) {
+          console.error(
+            "API-Antwort nicht erhalten. Verwende worstgamesdata.json."
+          );
           setWorstGames(data.results);
         } else {
           setWorstGames(dataFromApi.results);
@@ -109,12 +115,18 @@ const WorstGamesEver = () => {
           <Heading>Die schlechtesten Spiele aller Zeiten</Heading>
           <Slider {...sliderSettings}>
             {worstGames.map((game) => (
-              <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
+              <GameWrapper
+                key={game.id}
+                onClick={() => handleGameClick(game.id)}
+              >
                 <GameTitle>{game.name}</GameTitle>
-                <GameRating> Verfügbare Stores:{" "}
+                <GameRating>
+                  {" "}
+                  Verfügbare Stores:{" "}
                   {game?.stores.map((store) => store.store.name).join(", ")}
                 </GameRating>
-                {game.background_image && !game.background_image.includes("error") ? (
+                {game.background_image &&
+                !game.background_image.includes("error") ? (
                   <GameImage src={game.background_image} alt={game.name} />
                 ) : (
                   <p>Kein Bild verfügbar</p>
@@ -124,7 +136,16 @@ const WorstGamesEver = () => {
           </Slider>
         </div>
       ) : (
-        <LoadingMessage>Lade...</LoadingMessage>
+        <LoadingMessage>
+          <span className="loading loading-spinner text-primary"></span>
+          <span className="loading loading-spinner text-secondary"></span>
+          <span className="loading loading-spinner text-accent"></span>
+          <span className="loading loading-spinner text-neutral"></span>
+          <span className="loading loading-spinner text-info"></span>
+          <span className="loading loading-spinner text-success"></span>
+          <span className="loading loading-spinner text-warning"></span>
+          <span className="loading loading-spinner text-error"></span>
+        </LoadingMessage>
       )}
     </Container>
   );
