@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
 import data from "./datas/worstgamesdata.json";
 import styled from "styled-components";
+import API_KEY from "./config";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -54,32 +55,35 @@ const WorstGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
-          (response) => response.json()
-        );
-
+        const apiUrl = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=-metacritic`;
+        
+        const apiPromise = fetch(apiUrl).then((response) => response.json());
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
         );
-
+    
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
-
-        console.log("Daten erhalten:", dataFromApi);
-
-        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
-          console.error("API-Antwort nicht erhalten. Verwende worstgamesdata.json.");
-          setWorstGames(data.results);
+    
+        console.log("API response:", dataFromApi);
+    
+        if (
+          !dataFromApi ||
+          !dataFromApi.results ||
+          dataFromApi.results.length === 0
+        ) {
+          console.error("API response not received. Using bestgamesdata.json.");
+          setBestGames(bestGamesData.results);
         } else {
-          setWorstGames(dataFromApi.results);
+          setBestGames(dataFromApi.results);
         }
       } catch (error) {
         if (error.message === "Timeout") {
           console.error(
-            "Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus worstgamesdata.json."
+            "The API request has timed out. Using data from bestgamesdata.json."
           );
-          setWorstGames(data.results);
+          setBestGames(bestGamesData.results);
         } else {
-          console.error("Fehler bei der API-Anfrage:", error);
+          console.error("Error in API request:", error);
         }
       }
     };

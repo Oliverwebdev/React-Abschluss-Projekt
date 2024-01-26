@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import SingleGame from './SingelGameFetch'; 
-import bestGamesData from './datas/bestgamesdata.json';
-import styled from 'styled-components';
-
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import SingleGame from "./SingelGameFetch";
+import bestGamesData from "./datas/bestgamesdata.json";
+import styled from "styled-components";
+import API_KEY from "./config";
 
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 // ###################################################
 
@@ -50,7 +50,6 @@ const LoadingMessage = styled.div`
 `;
 // ###################################################
 
-
 // Fetching data from the API
 // ###################################################
 
@@ -61,19 +60,22 @@ const BestGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=-metacritic").then(
-          (response) => response.json()
-        );
-
+        const apiUrl = `https://api.rawg.io/api/games?key=${API_KEY}&ordering=-metacritic`;
+        
+        const apiPromise = fetch(apiUrl).then((response) => response.json());
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
         );
-
+    
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
-
+    
         console.log("API response:", dataFromApi);
-
-        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
+    
+        if (
+          !dataFromApi ||
+          !dataFromApi.results ||
+          dataFromApi.results.length === 0
+        ) {
           console.error("API response not received. Using bestgamesdata.json.");
           setBestGames(bestGamesData.results);
         } else {
@@ -81,7 +83,9 @@ const BestGamesEver = () => {
         }
       } catch (error) {
         if (error.message === "Timeout") {
-          console.error("The API request has timed out. Using data from bestgamesdata.json.");
+          console.error(
+            "The API request has timed out. Using data from bestgamesdata.json."
+          );
           setBestGames(bestGamesData.results);
         } else {
           console.error("Error in API request:", error);
@@ -91,7 +95,11 @@ const BestGamesEver = () => {
 
     fetchData();
   }, []);
-// ###################################################
+  // ###################################################
+
+  const handleGameClick = (gameId) => {
+    setSelectedGameId(gameId);
+  };
 
   // Settings for the react-slick carousel
   const sliderSettings = {
@@ -102,17 +110,7 @@ const BestGamesEver = () => {
     slidesToScroll: 4,
   };
 
-
-
-
-  const handleGameClick = (gameId) => {
-    setSelectedGameId(gameId);
-  };
-
-
-
-
-// ###################################################
+  // ###################################################
   return (
     <Container>
       {selectedGameId ? (
@@ -122,16 +120,27 @@ const BestGamesEver = () => {
           <Heading>Die besten Spiele aller Zeiten</Heading>
           <Slider {...sliderSettings}>
             {bestGames.map((game) => (
-              <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
-                <GameTitle>{game.name}</GameTitle>
-                <MetacriticRating>Bewertung: {game.metacritic}%</MetacriticRating>
-                
-                {game.background_image && !game.background_image.includes("error") ? (
-                  <GameImage src={game.background_image} alt={game.name} />
-                ) : (
-                  <p>Kein Bild verfügbar</p>
-                )}
-              </GameWrapper>
+              <motion.div>
+                <GameWrapper
+                  key={game.id}
+                  onClick={() => handleGameClick(game.id)}
+                >
+                  <GameTitle>{game.name}</GameTitle>
+                  <MetacriticRating>
+                    Bewertung: {game.metacritic}%
+                  </MetacriticRating>
+
+                  {game.background_image &&
+                  !game.background_image.includes("error") ? (
+                    <GameImage src={game.background_image} alt={game.name} />
+                  ) : (
+                    <LoadingSpinner>
+                    Lade...
+                    <Spinner /> {/* Hier den Spinner einfügen */}
+                  </LoadingSpinner>
+                  )}
+                </GameWrapper>
+              </motion.div>
             ))}
           </Slider>
         </div>
