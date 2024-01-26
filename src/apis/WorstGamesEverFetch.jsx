@@ -46,7 +46,7 @@ const LoadingMessage = styled.div`
 `;
 
 const WorstGamesEver = () => {
-  const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
+  const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
   const apiUrl = "https://api.rawg.io/api/games";
   const [worstGames, setWorstGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
@@ -54,9 +54,9 @@ const WorstGamesEver = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiPromise = fetch(`${apiUrl}?key=${apiKey}&ordering=metacritic`).then(
-          (response) => response.json()
-        );
+        const apiPromise = fetch(
+          `${apiUrl}?key=${apiKey}&ordering=metacritic`
+        ).then((response) => response.json());
 
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
@@ -66,8 +66,14 @@ const WorstGamesEver = () => {
 
         console.log("Daten erhalten:", dataFromApi);
 
-        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
-          console.error("API-Antwort nicht erhalten. Verwende worstgamesdata.json.");
+        if (
+          !dataFromApi ||
+          !dataFromApi.results ||
+          dataFromApi.results.length === 0
+        ) {
+          console.error(
+            "API-Antwort nicht erhalten. Verwende worstgamesdata.json."
+          );
           setWorstGames(data.results);
         } else {
           setWorstGames(dataFromApi.results);
@@ -109,12 +115,18 @@ const WorstGamesEver = () => {
           <Heading>Die schlechtesten Spiele aller Zeiten</Heading>
           <Slider {...sliderSettings}>
             {worstGames.map((game) => (
-              <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
+              <GameWrapper
+                key={game.id}
+                onClick={() => handleGameClick(game.id)}
+              >
                 <GameTitle>{game.name}</GameTitle>
-                <GameRating> Verfügbare Stores:{" "}
+                <GameRating>
+                  {" "}
+                  Verfügbare Stores:{" "}
                   {game?.stores.map((store) => store.store.name).join(", ")}
                 </GameRating>
-                {game.background_image && !game.background_image.includes("error") ? (
+                {game.background_image &&
+                !game.background_image.includes("error") ? (
                   <GameImage src={game.background_image} alt={game.name} />
                 ) : (
                   <p>Kein Bild verfügbar</p>

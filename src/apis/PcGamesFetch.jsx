@@ -21,7 +21,7 @@ const PcGamesFetch = () => {
   const fetchPageData = async (page) => {
     try {
       // API-Schlüssel und Plattform einstellen
-      const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
+      const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
       const platforms = "4";
 
       // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen

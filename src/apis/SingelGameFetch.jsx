@@ -40,7 +40,7 @@ const GameDetail = styled.p`
 `;
 
 const SingleGame = ({ gameId }) => {
-  const apiKey = "e5af9c0ecbb74eb68b32eb1dc1142b2b";
+  const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
   const apiUrl = "https://api.rawg.io/api/games";
   const [game, setGame] = useState(null);
   const [previousGame, setPreviousGame] = useState(null);
@@ -63,8 +63,6 @@ const SingleGame = ({ gameId }) => {
 
     fetchGame();
   }, [gameId]);
-
-  
 
   return (
     <GameContainer>
@@ -90,7 +88,6 @@ const SingleGame = ({ gameId }) => {
             Verfügbare Stores:{" "}
             {game?.stores.map((store) => store.store.name).join(", ")}
           </GameDetail>
-          
         </div>
       ) : (
         <div>Lade...</div>

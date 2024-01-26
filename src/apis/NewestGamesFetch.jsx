@@ -52,9 +52,9 @@ const NewestGames = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiPromise = fetch("https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&ordering=released").then(
-          (response) => response.json()
-        );
+        const apiPromise = fetch(
+          "https://api.rawg.io/api/games?key=18bbf57ee97d4e06b816ccd76c11d8dd&ordering=released"
+        ).then((response) => response.json());
 
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
@@ -64,8 +64,14 @@ const NewestGames = () => {
 
         console.log("Daten erhalten:", dataFromApi);
 
-        if (!dataFromApi || !dataFromApi.results || dataFromApi.results.length === 0) {
-          console.error("API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei.");
+        if (
+          !dataFromApi ||
+          !dataFromApi.results ||
+          dataFromApi.results.length === 0
+        ) {
+          console.error(
+            "API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei."
+          );
           setNewestGames(data.results);
         } else {
           console.log("Daten von der API erhalten.");
@@ -108,12 +114,17 @@ const NewestGames = () => {
           <Heading>Die neuesten Spiele</Heading>
           <Slider {...sliderSettings}>
             {newestGames.map((game) => (
-              <GameWrapper key={game.id} onClick={() => handleGameClick(game.id)}>
+              <GameWrapper
+                key={game.id}
+                onClick={() => handleGameClick(game.id)}
+              >
                 <GameTitle>{game.name}</GameTitle>
-                <ReleaseDate>Verfügbare Stores:{" "}
+                <ReleaseDate>
+                  Verfügbare Stores:{" "}
                   {game?.stores.map((store) => store.store.name).join(", ")}
                 </ReleaseDate>
-                {game.background_image && !game.background_image.includes("error") ? (
+                {game.background_image &&
+                !game.background_image.includes("error") ? (
                   <GameImage src={game.background_image} alt={game.name} />
                 ) : (
                   <p>Kein Bild verfügbar</p>
