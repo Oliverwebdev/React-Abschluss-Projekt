@@ -9,7 +9,6 @@ import {
 import UserBita from "/src/images/Bita.jpg";
 import UserOli from "/src/images/Oli.jpg";
 import UserNorbert from "/src/images/Norbert.jpg";
-// import teamMembers2 from "./../../data/team.json";
 
 const teamMembers = [
   {
@@ -21,6 +20,7 @@ const teamMembers = [
       facebook: "http://www.facebook.com/oliver",
       instagram: "http://www.instagram.com/oliver",
       gmail: "mailto:oliver@example.com",
+      githubUrl: "https://github.com/Oliverwebdev",
     },
   },
   {
@@ -32,9 +32,9 @@ const teamMembers = [
       facebook: "http://www.facebook.com/bitasadeghi",
       instagram: "http://www.instagram.com/bitasadeghi",
       gmail: "mailto:bita@example.com",
+      githubUrl: "https://github.com/bita9170",
     },
   },
-
   {
     name: "Norbert Fridrich",
     position: "Backend Developer",
@@ -44,11 +44,17 @@ const teamMembers = [
       facebook: "http://www.facebook.com/norbert",
       instagram: "http://www.instagram.com/norbert",
       gmail: "mailto:norbert@example.com",
+      githubUrl: "https://github.com/Bratpfanne92",
     },
   },
 ];
 
 function Team() {
+  const redirectToGitHub = (githubUrl) => {
+    // Öffne die GitHub-Seite des Teammitglieds in einem neuen Tab
+    window.open(githubUrl, '_blank');
+  };
+
   return (
     <div className="team-container">
       <div className="team-inner-container">
@@ -60,7 +66,7 @@ function Team() {
           {teamMembers.map((member, index) => (
             <div key={index} className="team-card-container">
               <div className="team-card">
-                <div className="img-wrapper">
+                <div className="img-wrapper" onClick={() => redirectToGitHub(member.socialLinks.githubUrl)}>
                   <img
                     className="team-img"
                     src={member.image}
@@ -73,23 +79,25 @@ function Team() {
                 </div>
                 <div className="social-media-links">
                   {Object.entries(member.socialLinks).map(([key, value]) => (
-                    <a
-                      key={key}
-                      href={value}
-                      target="_blank"
-                      style={{ marginRight: "10px" }}
-                    >
-                      {key === "twitter" && (
-                        <FontAwesomeIcon icon={faTwitterSquare} />
-                      )}
-                      {key === "facebook" && (
-                        <FontAwesomeIcon icon={faFacebook} />
-                      )}
-                      {key === "instagram" && (
-                        <FontAwesomeIcon icon={faInstagram} />
-                      )}
-                      {key === "gmail" && <FontAwesomeIcon icon={faEnvelope} />}
-                    </a>
+                    key !== 'githubUrl' && (
+                      <a
+                        key={key}
+                        href={value}
+                        target="_blank"
+                        style={{ marginRight: "10px" }}
+                      >
+                        {key === "twitter" && (
+                          <FontAwesomeIcon icon={faTwitterSquare} />
+                        )}
+                        {key === "facebook" && (
+                          <FontAwesomeIcon icon={faFacebook} />
+                        )}
+                        {key === "instagram" && (
+                          <FontAwesomeIcon icon={faInstagram} />
+                        )}
+                        {key === "gmail" && <FontAwesomeIcon icon={faEnvelope} />}
+                      </a>
+                    )
                   ))}
                 </div>
               </div>
