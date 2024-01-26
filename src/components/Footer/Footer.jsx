@@ -7,7 +7,10 @@ function Footer() {
   return (
     <footer>
       <Team />
+      <br />
       <Nav />
+      <br />
+      <br />
       <Newsletter />
     </footer>
   );
