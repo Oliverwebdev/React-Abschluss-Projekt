@@ -13,13 +13,13 @@ import UserNorbert from "/src/images/Norbert.jpg";
 const teamMembers = [
   {
     name: "Oliver",
-    position: "Backend Developer",
+    position: "Front/Backend Developer",
     image: UserOli,
     socialLinks: {
-      twitter: "http://www.twitter.com/oliver",
-      facebook: "http://www.facebook.com/oliver",
-      instagram: "http://www.instagram.com/oliver",
-      gmail: "mailto:oliver@example.com",
+      twitter: "https://www.tiktok.com/@gringenerator?_t=8hQxyz4bOW8&_r=1",
+      instagram: "https://www.tiktok.com/@gringenerator?_t=8hQxyz4bOW8&_r=1",
+      instagram: "https://www.tiktok.com/@der_gamer_olli?_t=8beBhKAadgI&_r=1",
+      gmail: "karl78850@gmail.com",
       githubUrl: "https://github.com/Oliverwebdev",
     },
   },

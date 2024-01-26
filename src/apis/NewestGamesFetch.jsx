@@ -55,15 +55,15 @@ const NewestGames = () => {
       try {
         const url = `https://api.rawg.io/api/games?key=${apiKey}&ordering=released`;
         const apiPromise = fetch(url).then((response) => response.json());
-
+  
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
         );
-
+  
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
-
+  
         console.log("Daten erhalten:", dataFromApi);
-
+  
         if (
           !dataFromApi ||
           !dataFromApi.results ||
@@ -72,7 +72,7 @@ const NewestGames = () => {
           console.error(
             "API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei."
           );
-          setNewestGames(bestGamesData.results);
+          setNewestGames(data.results);  // Fix the typo here
         } else {
           console.log("Daten von der API erhalten.");
           setNewestGames(dataFromApi.results);
@@ -82,13 +82,13 @@ const NewestGames = () => {
           console.error(
             "Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus der importierten JSON-Datei."
           );
-          setNewestGames(bestGamesData.results);
+          setNewestGames(data.results);  // Fix the typo here
         } else {
           console.error("Fehler bei der API-Anfrage:", error);
         }
       }
     };
-
+  
     fetchData();
   }, []); 
 
