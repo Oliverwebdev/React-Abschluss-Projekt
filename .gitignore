@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+project-vorschlag.excalidraw
+bestgamesdata.json
+newestgamedata.json
+pcGamesLocal.json
+psGamesLocal.json
+worstgamesdata.json
+xboxGamesLocal.json

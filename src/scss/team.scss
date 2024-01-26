@@ -1,0 +1,39 @@
+.team-container {
+  @apply my-12 text-center;
+
+  .team-grid {
+    @apply grid md:grid-cols-3 gap-2; // https://tailwindcss.com/docs/screens
+  }
+
+  .team-card-container {
+    @apply my-4;
+
+    .team-card {
+      @apply grid gap-4;
+    }
+
+    .img-wrapper {
+      .team-img {
+        @apply w-52 h-52 object-cover rounded-full m-auto border-2  hover:scale-110 transition-transform duration-500;
+      }
+    }
+  }
+
+  .social-media-links {
+    @apply flex justify-center;
+  }
+}
+
+[data-theme="light"] {
+  .team-container {
+    .team-card-container {
+      .team-card {
+        .img-wrapper {
+          .team-img {
+            @apply border-black;
+          }
+        }
+      }
+    }
+  }
+}

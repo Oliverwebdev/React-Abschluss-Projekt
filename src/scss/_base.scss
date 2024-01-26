@@ -7,15 +7,26 @@
   list-style: none;
 }
 
+#root {
+  @apply border-t-8 border-secondary;
+}
 img,
 svg {
   display: block;
   max-width: 100%;
 }
 
+h2 {
+  @apply text-2xl font-bold uppercase text-center text-secondary relative my-6;
+
+  &::after {
+    @apply content-[''] w-1/4 left-1/2 -translate-x-1/2 h-0.5 bg-secondary absolute  -bottom-4;
+  }
+}
+
 body {
   @apply bg-base-100 text-neutral-400;
-  background: url("./../images/bg.png") no-repeat 50px fixed;
+  background: url("./../images/bg.png") no-repeat top center;
   font-family: "Roboto", sans-serif;
 
   .container {

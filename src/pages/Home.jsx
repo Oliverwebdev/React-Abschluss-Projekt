@@ -3,12 +3,6 @@ import stageImage from "./../images/spiderman.png";
 import Indexmain from "../components/buildcomponents/Indexmain";
 
 function Home() {
-  // useEffect(() => {
-  //   const img = document.querySelector(".stage img");
-  //   setTimeout(() => {
-  //     img.style.transform = "translateX(0)";
-  //   }, 1000);
-  // }, []);
 
   return (
     <div>

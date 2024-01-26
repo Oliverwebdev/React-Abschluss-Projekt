@@ -17,7 +17,7 @@ const Heading = styled.h2`
   margin: 2rem;
   text-align: center;
   font-size: 24px;
-  text-decoration: underline;
+  // text-decoration: underline;
 `;
 
 const GameWrapper = styled.div`
@@ -136,7 +136,16 @@ const WorstGamesEver = () => {
           </Slider>
         </div>
       ) : (
-        <LoadingMessage>Lade...</LoadingMessage>
+        <LoadingMessage>
+          <span className="loading loading-spinner text-primary"></span>
+          <span className="loading loading-spinner text-secondary"></span>
+          <span className="loading loading-spinner text-accent"></span>
+          <span className="loading loading-spinner text-neutral"></span>
+          <span className="loading loading-spinner text-info"></span>
+          <span className="loading loading-spinner text-success"></span>
+          <span className="loading loading-spinner text-warning"></span>
+          <span className="loading loading-spinner text-error"></span>
+        </LoadingMessage>
       )}
     </Container>
   );
