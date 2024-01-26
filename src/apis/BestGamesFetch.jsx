@@ -5,6 +5,7 @@ import bestGamesData from "./datas/bestgamesdata.json";
 import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import apiKey from "./api";
 
 // Styled components
 const Container = styled.div`
@@ -52,7 +53,7 @@ const BestGamesEver = () => {
     const fetchData = async () => {
       try {
         const apiPromise = fetch(
-          "https://api.rawg.io/api/games?key=18bbf57ee97d4e06b816ccd76c11d8dd&ordering=-metacritic"
+          `https://api.rawg.io/api/games?key=${apiKey}&ordering=-metacritic`
         ).then((response) => response.json());
 
         const timeoutPromise = new Promise((_, reject) =>

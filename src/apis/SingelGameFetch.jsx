@@ -40,7 +40,7 @@ const GameDetail = styled.p`
 `;
 
 const SingleGame = ({ gameId }) => {
-  const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
+  // const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
   const apiUrl = "https://api.rawg.io/api/games";
   const [game, setGame] = useState(null);
   const [previousGame, setPreviousGame] = useState(null);

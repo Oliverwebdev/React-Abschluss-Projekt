@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
 import data from "./datas/newestgamedata.json";
 import styled from "styled-components";
+import apiKey from "./api";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -52,9 +53,8 @@ const NewestGames = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const apiPromise = fetch(
-          "https://api.rawg.io/api/games?key=18bbf57ee97d4e06b816ccd76c11d8dd&ordering=released"
-        ).then((response) => response.json());
+        const url = `https://api.rawg.io/api/games?key=${apiKey}&ordering=released`;
+        const apiPromise = fetch(url).then((response) => response.json());
 
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
@@ -72,7 +72,7 @@ const NewestGames = () => {
           console.error(
             "API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei."
           );
-          setNewestGames(data.results);
+          setNewestGames(bestGamesData.results);
         } else {
           console.log("Daten von der API erhalten.");
           setNewestGames(dataFromApi.results);
@@ -82,7 +82,7 @@ const NewestGames = () => {
           console.error(
             "Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus der importierten JSON-Datei."
           );
-          setNewestGames(data.results);
+          setNewestGames(bestGamesData.results);
         } else {
           console.error("Fehler bei der API-Anfrage:", error);
         }
@@ -90,7 +90,7 @@ const NewestGames = () => {
     };
 
     fetchData();
-  }, []);
+  }, []); 
 
   // Settings for the react-slick carousel
   const sliderSettings = {

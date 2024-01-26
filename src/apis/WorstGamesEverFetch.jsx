@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
 import data from "./datas/worstgamesdata.json";
 import styled from "styled-components";
+import apiKey from "./api";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -46,12 +47,13 @@ const LoadingMessage = styled.div`
 `;
 
 const WorstGamesEver = () => {
-  const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
-  const apiUrl = "https://api.rawg.io/api/games";
   const [worstGames, setWorstGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const apiUrl = "https://api.rawg.io/api/games";
+    
     const fetchData = async () => {
       try {
         const apiPromise = fetch(
