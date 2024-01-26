@@ -58,9 +58,9 @@ function Team() {
   return (
     <div className="team-container">
       <div className="team-inner-container">
-        <h2>Meet Our Expert Team</h2>
+      <h2>Meet Our Developer Team</h2>
         <p className="text-blk section-subhead-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          
         </p>
         <div className="team-grid">
           {teamMembers.map((member, index) => (

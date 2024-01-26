@@ -42,7 +42,7 @@ const Image = styled.img`
 function Nav() {
   return (
     <Container>
-      <h2>Game Store</h2>
+      <h2>Games Stores</h2>
 
       <ul>
         <li>
