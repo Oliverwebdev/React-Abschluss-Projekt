@@ -10,10 +10,10 @@ function Home() {
         <div className="stage-content">
           <h1>OLBERTA GAMES</h1>
           <p>
-            Olberta is a website where you can find the best games for your
-            console. We have a collection of the best games for PC, Xbox and
-            PlayStation. You can also find the newest games and the worst games
-            ever.
+            
+          
+
+          Olberta, powered by Rawg API, is your hub for top games. We offer a comprehensive collection for PC, Xbox, and PlayStation, including the latest releases and less favored titles. The Rawg API integration ensures current and detailed gaming information.
           </p>
         </div>
         <img src={stageImage} alt="Spiderman" />
