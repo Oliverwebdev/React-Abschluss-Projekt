@@ -108,7 +108,7 @@ const BestGamesEver = () => {
         <SingleGame gameId={selectedGameId} />
       ) : bestGames.length > 0 ? (
         <div>
-          <Heading>Die besten Spiele aller Zeiten</Heading>
+          <Heading>The best Games ever</Heading>
           <Slider {...sliderSettings}>
             {bestGames.map((game) => (
               <GameWrapper

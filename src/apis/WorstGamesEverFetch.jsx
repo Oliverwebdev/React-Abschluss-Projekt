@@ -114,7 +114,7 @@ const WorstGamesEver = () => {
         <SingleGame gameId={selectedGameId} />
       ) : worstGames.length > 0 ? (
         <div>
-          <Heading>Die schlechtesten Spiele aller Zeiten</Heading>
+          <Heading>The Worst Games ever</Heading>
           <Slider {...sliderSettings}>
             {worstGames.map((game) => (
               <GameWrapper

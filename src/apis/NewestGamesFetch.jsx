@@ -111,7 +111,7 @@ const NewestGames = () => {
         <SingleGame gameId={selectedGameId} />
       ) : newestGames.length > 0 ? (
         <div>
-          <Heading>Die neuesten Spiele</Heading>
+          <Heading>The newest Games</Heading>
           <Slider {...sliderSettings}>
             {newestGames.map((game) => (
               <GameWrapper
