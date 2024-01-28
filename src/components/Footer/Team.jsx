@@ -37,7 +37,7 @@ const teamMembers = [
   },
   {
     name: "Norbert Fridrich",
-    position: "Backend Developer",
+    position: "Front/Backend Developer",
     image: UserNorbert,
     socialLinks: {
       twitter: "http://www.twitter.com/norbert",
@@ -52,21 +52,22 @@ const teamMembers = [
 function Team() {
   const redirectToGitHub = (githubUrl) => {
     // Öffne die GitHub-Seite des Teammitglieds in einem neuen Tab
-    window.open(githubUrl, '_blank');
+    window.open(githubUrl, "_blank");
   };
 
   return (
     <div className="team-container">
       <div className="team-inner-container">
-      <h2>Meet Our Developer Team</h2>
-        <p className="text-blk section-subhead-text">
-          
-        </p>
+        <h2>Meet Our Developer Team</h2>
+        <p className="text-blk section-subhead-text"></p>
         <div className="team-grid">
           {teamMembers.map((member, index) => (
             <div key={index} className="team-card-container">
               <div className="team-card">
-                <div className="img-wrapper" onClick={() => redirectToGitHub(member.socialLinks.githubUrl)}>
+                <div
+                  className="img-wrapper"
+                  onClick={() => redirectToGitHub(member.socialLinks.githubUrl)}
+                >
                   <img
                     className="team-img"
                     src={member.image}
@@ -78,27 +79,30 @@ function Team() {
                   <p className="text-blk position">{member.position}</p>
                 </div>
                 <div className="social-media-links">
-                  {Object.entries(member.socialLinks).map(([key, value]) => (
-                    key !== 'githubUrl' && (
-                      <a
-                        key={key}
-                        href={value}
-                        target="_blank"
-                        style={{ marginRight: "10px" }}
-                      >
-                        {key === "twitter" && (
-                          <FontAwesomeIcon icon={faTwitterSquare} />
-                        )}
-                        {key === "facebook" && (
-                          <FontAwesomeIcon icon={faFacebook} />
-                        )}
-                        {key === "instagram" && (
-                          <FontAwesomeIcon icon={faInstagram} />
-                        )}
-                        {key === "gmail" && <FontAwesomeIcon icon={faEnvelope} />}
-                      </a>
-                    )
-                  ))}
+                  {Object.entries(member.socialLinks).map(
+                    ([key, value]) =>
+                      key !== "githubUrl" && (
+                        <a
+                          key={key}
+                          href={value}
+                          target="_blank"
+                          style={{ marginRight: "10px" }}
+                        >
+                          {key === "twitter" && (
+                            <FontAwesomeIcon icon={faTwitterSquare} />
+                          )}
+                          {key === "facebook" && (
+                            <FontAwesomeIcon icon={faFacebook} />
+                          )}
+                          {key === "instagram" && (
+                            <FontAwesomeIcon icon={faInstagram} />
+                          )}
+                          {key === "gmail" && (
+                            <FontAwesomeIcon icon={faEnvelope} />
+                          )}
+                        </a>
+                      )
+                  )}
                 </div>
               </div>
             </div>
