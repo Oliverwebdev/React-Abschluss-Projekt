@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import SingleGameFetch from "./SingelGameFetch";
 import apiKey from "./api";
 
-
 const PcGamesFetch = () => {
   // Zustand zum Speichern aller heruntergeladenen Spiele
   const [allGames, setAllGames] = useState([]);
@@ -150,10 +149,9 @@ const PcGamesFetch = () => {
               className="gameImage"
               src={game.background_image}
               alt={game.name}
-              style={{ maxWidth: "300px", maxHeight: "200px" }}
             />
             {game.metacritic && <p>Bewertung: {game.metacritic}%</p>}
-            <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
+            <button onClick={() => handleShowDetails(game.id)}>More...</button>
           </li>
         ))}
       </ul>
