@@ -169,7 +169,7 @@ const XboxGamesFetch = () => {
               src={game.background_image}
               alt={game.name}
             />
-            {game.metacritic && <p>Bewertung: {game.metacritic}%</p>}
+
             <button onClick={() => handleShowDetails(game.id)}>More...</button>
           </li>
         ))}
