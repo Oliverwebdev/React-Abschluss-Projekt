@@ -152,13 +152,25 @@
 }
 
 .titelGames {
-  margin-top: 10px;
-  font-size: 20px;
-  font-weight: 700;
-  color: #000;
+  margin: 10px;
+
+  font-size: 2rem;
+  font-weight: 600;
+  color: #a3a3a3;
   text-align: center;
 }
-
+.dropdown-pg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 20px;
+  width: 100px;
+  height: 50px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  padding: 5px;
+}
 .gamesList {
   display: flex;
   flex-wrap: wrap;
@@ -180,11 +192,10 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease-in-out;
 }
-
 .gamesCardTitel {
   font-size: 1rem;
-  font-weight: 600;
-  color: #000;
+  font-weight: 800;
+  color: #ec6868;
   text-align: center;
 }
 
@@ -201,10 +212,11 @@
   font-weight: 600;
   font-size: 1.2rem;
   bottom: 0;
+  color: #a3a3a3;
   left: auto;
   width: 40%;
   height: 50px;
-  background-color: transparent;
+
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -213,9 +225,47 @@
   &:hover {
     transform: scale(1.05);
     color: rgb(244, 59, 59);
-    box-shadow: 0 0 10px rgba(247, 0, 0, 0.842);
+    box-shadow: 0 0 20px rgb(247, 0, 0);
     font-weight: 800;
     font-size: 1.3rem;
+  }
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 20px;
+  width: 6rem;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  transition: all 0.05s linear;
+  font-weight: 600;
+
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+    color: #ec6868;
+    box-shadow: 0 0 20px rgb(247, 0, 0);
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+}
+
+.pagination button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  width: 50%;
+  height: 100%;
+  background-color: transparent;
+  // border: 1px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    color: rgb(244, 59, 59);
   }
 }
 /* Media Queries für verschiedene Bildschirmgrößen */

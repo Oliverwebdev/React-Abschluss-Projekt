@@ -15,19 +15,21 @@ const XboxGamesFetch = () => {
   // Zustand zur Verfolgung der aktuellen Seite
   const [currentPage, setCurrentPage] = useState(1);
 
+  // Zustand für die Anzahl der Spiele pro Seite
+  const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
+
   // Anzahl der anzuzeigenden Spiele pro Seite
-  const pageSize = 50;
+  const pageSizeOptions = [10, 20, 30, 40];
 
   // Funktion zum Abrufen von Daten für eine bestimmte Seite
   const fetchPageData = async (page) => {
     try {
       // API-Schlüssel und Plattform einstellen
-      // const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
-      const platforms = "1" && "14" && "186";
+      const platforms = "80" && "1" && "14" && "186"; // Xbox-Plattformen
 
       // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${pageSize}&ordering=name`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${gamesPerPage}&ordering=name`
       );
 
       // Überprüfen der HTTP-Antwort
@@ -62,7 +64,7 @@ const XboxGamesFetch = () => {
   // Funktion zum Abrufen der lokalen Spieldaten
   const fetchLocalGameData = async () => {
     try {
-      // Lokale Datei pcGamesLocal.json abrufen
+      // Lokale Datei xboxGamesLocal.json abrufen
       const localGameDataResponse = await fetch("./datas/xboxGamesLocal.json");
 
       if (!localGameDataResponse.ok) {
@@ -117,6 +119,11 @@ const XboxGamesFetch = () => {
     }
   };
 
+  // Funktion zum Ändern der Anzahl der Spiele pro Seite
+  const handleGamesPerPageChange = (event) => {
+    setGamesPerPage(parseInt(event.target.value));
+  };
+
   // Initiale Daten abrufen, wenn die Komponente montiert wird
   useEffect(() => {
     const fetchData = async (page) => {
@@ -133,12 +140,24 @@ const XboxGamesFetch = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage]);
+  }, [currentPage, gamesPerPage]);
 
   return (
-    <div className="gamesContainer" style={{ display: "flex" }}>
-      <p className="titelGames">PC Spiele</p>
-      <p className="gameCount">{allGames.length} Titel</p>
+    <div className="gamesContainer">
+      <p className="titelGames">Xbox Games</p>
+
+      {/* Dropdown-Menü für die Anzahl der Spiele pro Seite */}
+      <select
+        className="dropdown-pg"
+        value={gamesPerPage}
+        onChange={handleGamesPerPageChange}
+      >
+        {pageSizeOptions.map((option) => (
+          <option key={option} value={option}>
+            {option} per Page
+          </option>
+        ))}
+      </select>
 
       {/* Liste der Spiele anzeigen */}
       <ul className="gamesList">
@@ -167,7 +186,9 @@ const XboxGamesFetch = () => {
       {/* Paginierung - Schaltfläche zum Laden der vorherigen Seite */}
       <div className="pagination">
         <button onClick={handlePagePrev}>Prev Page</button>
-        {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
+      </div>
+      {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
+      <div className="pagination">
         <button onClick={handlePageChange}>Next Page</button>
       </div>
     </div>

@@ -5,29 +5,26 @@ import apiKey from "./api";
 const PsGamesFetch = () => {
   // Zustand zum Speichern aller heruntergeladenen Spiele
   const [allGames, setAllGames] = useState([]);
-
   // Zustand zum Speichern der Spiele, die auf der aktuellen Seite angezeigt werden sollen
   const [games, setGames] = useState([]);
-
   // Zustand zur Speicherung der ID des ausgewählten Spiels für die Detailansicht
   const [selectedGameId, setSelectedGameId] = useState(null);
-
   // Zustand zur Verfolgung der aktuellen Seite
   const [currentPage, setCurrentPage] = useState(1);
-
+  // Zustand für die Anzahl der Spiele pro Seite
+  const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
   // Anzahl der anzuzeigenden Spiele pro Seite
-  const pageSize = 50;
+  const pageSizeOptions = [10, 20, 30, 40];
 
   // Funktion zum Abrufen von Daten für eine bestimmte Seite
   const fetchPageData = async (page) => {
     try {
       // API-Schlüssel und Plattform einstellen
-      // const apiKey = "18bbf57ee97d4e06b816ccd76c11d8dd";
-      const platforms = "187" && "18" && "16";
+      const platforms = "27" && "15" && "16" && "18" && "187" && "17" && "19"; // PlayStation-Plattformen
 
       // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${pageSize}&ordering=name`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${gamesPerPage}&ordering=name`
       );
 
       // Überprüfen der HTTP-Antwort
@@ -62,7 +59,7 @@ const PsGamesFetch = () => {
   // Funktion zum Abrufen der lokalen Spieldaten
   const fetchLocalGameData = async () => {
     try {
-      // Lokale Datei pcGamesLocal.json abrufen
+      // Lokale Datei psGamesLocal.json abrufen
       const localGameDataResponse = await fetch("./datas/psGamesLocal.json");
 
       if (!localGameDataResponse.ok) {
@@ -117,6 +114,11 @@ const PsGamesFetch = () => {
     }
   };
 
+  // Funktion zum Ändern der Anzahl der Spiele pro Seite
+  const handleGamesPerPageChange = (event) => {
+    setGamesPerPage(parseInt(event.target.value));
+  };
+
   // Initiale Daten abrufen, wenn die Komponente montiert wird
   useEffect(() => {
     const fetchData = async (page) => {
@@ -133,12 +135,24 @@ const PsGamesFetch = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage]);
+  }, [currentPage, gamesPerPage]);
 
   return (
-    <div className="gamesContainer" style={{ display: "flex" }}>
-      <p className="titelGames">PC Spiele</p>
-      <p className="gameCount">{allGames.length} Titel</p>
+    <div className="gamesContainer">
+      <p className="titelGames">PlayStation Games</p>
+
+      {/* Dropdown-Menü für die Anzahl der Spiele pro Seite */}
+      <select
+        className="dropdown-pg"
+        value={gamesPerPage}
+        onChange={handleGamesPerPageChange}
+      >
+        {pageSizeOptions.map((option) => (
+          <option key={option} value={option}>
+            {option} per Page
+          </option>
+        ))}
+      </select>
 
       {/* Liste der Spiele anzeigen */}
       <ul className="gamesList">
@@ -167,7 +181,9 @@ const PsGamesFetch = () => {
       {/* Paginierung - Schaltfläche zum Laden der vorherigen Seite */}
       <div className="pagination">
         <button onClick={handlePagePrev}>Prev Page</button>
-        {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
+      </div>
+      {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
+      <div className="pagination">
         <button onClick={handlePageChange}>Next Page</button>
       </div>
     </div>
