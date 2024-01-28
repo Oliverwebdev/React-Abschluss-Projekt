@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import apiKey from "./api";
 
 const GameContainer = styled.div`
   max-width: 600px;
