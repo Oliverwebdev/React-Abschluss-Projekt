@@ -25,7 +25,9 @@ function SearchBox() {
 
   const loadGameDetails = async (gameId) => {
     try {
-      const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=e5af9c0ecbb74eb68b32eb1dc1142b2b`);
+      const response = await fetch(
+        `https://api.rawg.io/api/games/${gameId}?key=e5af9c0ecbb74eb68b32eb1dc1142b2b`
+      );
       const data = await response.json();
       setSelectedGame(data);
 
@@ -62,29 +64,23 @@ function SearchBox() {
 
   return (
     <div className="join">
-      <div>
-        <Autosuggest
-          suggestions={suggestions.slice(0, MAX_SUGGESTIONS)}
-          onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={onSuggestionsClearRequested}
-          getSuggestionValue={getSuggestionValue}
-          renderSuggestion={renderSuggestion}
-          onSuggestionSelected={onSuggestionSelected}
-          inputProps={inputProps}
-          shouldRenderSuggestions={shouldRenderSuggestions}
-        />
-      </div>
-
+      
       <div className="indicator">
         {selectedGame ? (
           <div>
-            <button className="btn join-item" onClick={() => setSelectedGame(null)}>
+            <button
+              className="btn join-item"
+              onClick={() => setSelectedGame(null)}
+            >
               Zurück
             </button>
             <SingleGame gameId={selectedGame.id} />
           </div>
         ) : (
-          <button className="btn join-item" onClick={() => console.log(selectedGame)}>
+          <button
+            className="btn join-item"
+            onClick={() => console.log(selectedGame)}
+          >
             Search
           </button>
         )}
