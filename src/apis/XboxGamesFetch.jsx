@@ -14,7 +14,7 @@ const XboxGamesFetch = () => {
   // Zustand für die Anzahl der Spiele pro Seite
   const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
   // Zustand zum Speichern der ausgewählten Xbox-Plattform
-  const [platform, setPlatform] = useState("80"); // Standardmäßig Xbox One
+  const [platform, setPlatform] = useState("1"); // Standardmäßig Xbox One
   // Anzahl der anzuzeigenden Spiele pro Seite
   const pageSizeOptions = [10, 20, 30, 40];
 
