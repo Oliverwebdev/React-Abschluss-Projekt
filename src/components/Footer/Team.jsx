@@ -37,12 +37,12 @@ const teamMembers = [
   },
   {
     name: "Norbert Fridrich",
-    position: "Front/Backend Developer",
+    position: "Frontend Developer",
     image: UserNorbert,
     socialLinks: {
       twitter: "http://www.twitter.com/norbert",
-      facebook: "http://www.facebook.com/norbert",
-      instagram: "http://www.instagram.com/norbert",
+      facebook: "https://www.facebook.com/fridrichnorbi",
+      instagram: "https://www.instagram.com/gunci92",
       gmail: "mailto:norbert@example.com",
       githubUrl: "https://github.com/Bratpfanne92",
     },
