@@ -1,53 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
-import bestGamesData from "./datas/bestgamesdata.json";
-import styled from "styled-components";
+import apiKey from "./api";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import apiKey from "./api";
 
-// Styled components
-const Container = styled.div`
-  padding: 20px;
-  text-align: center;
-`;
-
-const Heading = styled.h2`
-  margin: 2rem;
-  text-align: center;
-  font-size: 24px;
-  // text-decoration: underline;
-`;
-
-const GameWrapper = styled.div`
-  margin: 0 auto;
-`;
-
-const GameTitle = styled.h3`
-  margin-top: 10px;
-  font-size: 1.3rem;
-`;
-
-const MetacriticRating = styled.p`
-  margin-top: 5px;
-`;
-
-const GameImage = styled.img`
-  width: 180px;
-  height: 100px;
-  margin: 0 auto;
-`;
-
-const LoadingMessage = styled.div`
-  text-align: center;
-  font-size: 18px;
-  margin: 20px;
-`;
-
-const BestGamesEver = () => {
-  const [bestGames, setBestGames] = useState([]);
+const SliderGames = ({ title, data }) => {
+  const [games, setGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `https://api.rawg.io/api/games?key=${apiKey}&ordering=-metacritic`
+      );
+      const jsonData = await response.json();
+      setGames(jsonData);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,17 +40,17 @@ const BestGamesEver = () => {
           !dataFromApi.results ||
           dataFromApi.results.length === 0
         ) {
-          console.error("API response not received. Using bestgamesdata.json.");
-          setBestGames(bestGamesData.results);
+          console.error("API response not received. Using data.json.");
+          setames(data.results);
         } else {
-          setBestGames(dataFromApi.results);
+          setGames(dataFromApi.results);
         }
       } catch (error) {
         if (error.message === "Timeout") {
           console.error(
-            "The API request has timed out. Using data from bestgamesdata.json."
+            "The API request has timed out. Using data from data.json."
           );
-          setBestGames(bestGamesData.results);
+          setGames(data.results);
         } else {
           console.error("Error in API request:", error);
         }
@@ -94,7 +65,7 @@ const BestGamesEver = () => {
     dots: false,
     infinite: true,
     speed: 300,
-    slidesToShow: window.innerWidth >= 760 ? 3 : 1,
+    slidesToShow: 3,
     slidesToScroll: 4,
   };
 
@@ -106,11 +77,11 @@ const BestGamesEver = () => {
     <div className="slider-game">
       {selectedGameId ? (
         <SingleGame gameId={selectedGameId} />
-      ) : bestGames.length > 0 ? (
+      ) : games.length > 0 ? (
         <div>
-          <h2>The best Games ever</h2>
+          <h2>{title}</h2>
           <Slider {...sliderSettings}>
-            {bestGames.map((game) => (
+            {games.map((game) => (
               <div
                 className="wrapper"
                 key={game.id}
@@ -175,4 +146,4 @@ const BestGamesEver = () => {
   );
 };
 
-export default BestGamesEver;
+export default SliderGames;

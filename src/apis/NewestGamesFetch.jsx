@@ -8,44 +8,6 @@ import apiKey from "./api";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// Styled components
-const Container = styled.div`
-  padding: 20px;
-  text-align: center;
-`;
-
-const Heading = styled.h2`
-  margin: 2rem;
-  text-align: center;
-  font-size: 24px;
-  // text-decoration: underline;
-`;
-
-const GameWrapper = styled.div`
-  margin: 0 auto;
-`;
-
-const GameTitle = styled.h3`
-  margin-top: 10px;
-  font-size: 1.3rem;
-`;
-
-const ReleaseDate = styled.p`
-  margin-top: 5px;
-`;
-
-const GameImage = styled.img`
-  width: 180px;
-  height: 100px;
-  margin: 0 auto;
-`;
-
-const LoadingMessage = styled.div`
-  text-align: center;
-  font-size: 18px;
-  margin: 20px;
-`;
-
 const NewestGames = () => {
   const [newestGames, setNewestGames] = useState([]);
   const [selectedGameId, setSelectedGameId] = useState(null);
@@ -55,15 +17,15 @@ const NewestGames = () => {
       try {
         const url = `https://api.rawg.io/api/games?key=${apiKey}&ordering=released`;
         const apiPromise = fetch(url).then((response) => response.json());
-  
+
         const timeoutPromise = new Promise((_, reject) =>
           setTimeout(() => reject(new Error("Timeout")), 3000)
         );
-  
+
         const dataFromApi = await Promise.race([apiPromise, timeoutPromise]);
-  
+
         console.log("Daten erhalten:", dataFromApi);
-  
+
         if (
           !dataFromApi ||
           !dataFromApi.results ||
@@ -72,7 +34,7 @@ const NewestGames = () => {
           console.error(
             "API-Antwort nicht erhalten. Verwende Daten aus der importierten JSON-Datei."
           );
-          setNewestGames(data.results);  // Fix the typo here
+          setNewestGames(data.results); // Fix the typo here
         } else {
           console.log("Daten von der API erhalten.");
           setNewestGames(dataFromApi.results);
@@ -82,22 +44,22 @@ const NewestGames = () => {
           console.error(
             "Die API-Anfrage hat das Zeitlimit überschritten. Verwende Daten aus der importierten JSON-Datei."
           );
-          setNewestGames(data.results);  // Fix the typo here
+          setNewestGames(data.results); // Fix the typo here
         } else {
           console.error("Fehler bei der API-Anfrage:", error);
         }
       }
     };
-  
+
     fetchData();
-  }, []); 
+  }, []);
 
   // Settings for the react-slick carousel
   const sliderSettings = {
     dots: false,
     infinite: true,
     speed: 300,
-    slidesToShow: 3,
+    slidesToShow: window.innerWidth >= 760 ? 3 : 1,
     slidesToScroll: 4,
   };
 
@@ -106,35 +68,64 @@ const NewestGames = () => {
   };
 
   return (
-    <Container>
+    <div className="slider-game">
       {selectedGameId ? (
         <SingleGame gameId={selectedGameId} />
       ) : newestGames.length > 0 ? (
         <div>
-          <Heading>The newest Games</Heading>
+          <h2>The newest Games</h2>
           <Slider {...sliderSettings}>
             {newestGames.map((game) => (
-              <GameWrapper
+              <div
+                className="wrapper"
                 key={game.id}
                 onClick={() => handleGameClick(game.id)}
               >
-                <GameTitle>{game.name}</GameTitle>
-                <ReleaseDate>
-                  Verfügbare Stores:{" "}
-                  {game?.stores.map((store) => store.store.name).join(", ")}
-                </ReleaseDate>
+                <h3>{game.name}</h3>
+                <p>
+                  Bewertung: {game.metacritic}%
+                  <div className="rating">
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                      checked
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                  </div>
+                </p>
+
                 {game.background_image &&
                 !game.background_image.includes("error") ? (
-                  <GameImage src={game.background_image} alt={game.name} />
+                  <img src={game.background_image} alt={game.name} />
                 ) : (
                   <p>Kein Bild verfügbar</p>
                 )}
-              </GameWrapper>
+              </div>
             ))}
           </Slider>
         </div>
       ) : (
-        <LoadingMessage>
+        <div>
           <span className="loading loading-spinner text-primary"></span>
           <span className="loading loading-spinner text-secondary"></span>
           <span className="loading loading-spinner text-accent"></span>
@@ -143,9 +134,9 @@ const NewestGames = () => {
           <span className="loading loading-spinner text-success"></span>
           <span className="loading loading-spinner text-warning"></span>
           <span className="loading loading-spinner text-error"></span>
-        </LoadingMessage>
+        </div>
       )}
-    </Container>
+    </div>
   );
 };
 

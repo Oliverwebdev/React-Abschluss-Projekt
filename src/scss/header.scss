@@ -10,7 +10,9 @@ header {
   }
 
   .logo {
-    @apply flex items-center gap-3;
+    a {
+      @apply flex items-center gap-2;
+    }
 
     div {
       @apply text-xl text-secondary font-bold;

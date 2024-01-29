@@ -2,49 +2,10 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
 import data from "./datas/worstgamesdata.json";
-import styled from "styled-components";
 import apiKey from "./api";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-// Styled components
-const Container = styled.div`
-  padding: 20px;
-  text-align: center;
-`;
-
-const Heading = styled.h2`
-  margin: 2rem;
-  text-align: center;
-  font-size: 24px;
-  // text-decoration: underline;
-`;
-
-const GameWrapper = styled.div`
-  margin: 0 auto;
-`;
-
-const GameTitle = styled.h3`
-  margin-top: 10px;
-  font-size: 1.3rem;
-`;
-
-const GameRating = styled.p`
-  margin-top: 5px;
-`;
-
-const GameImage = styled.img`
-  width: 180px;
-  height: 100px;
-  margin: 0 auto;
-`;
-
-const LoadingMessage = styled.div`
-  text-align: center;
-  font-size: 18px;
-  margin: 20px;
-`;
 
 const WorstGamesEver = () => {
   const [worstGames, setWorstGames] = useState([]);
@@ -53,7 +14,7 @@ const WorstGamesEver = () => {
 
   useEffect(() => {
     const apiUrl = "https://api.rawg.io/api/games";
-    
+
     const fetchData = async () => {
       try {
         const apiPromise = fetch(
@@ -100,7 +61,7 @@ const WorstGamesEver = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: window.innerWidth >= 760 ? 3 : 1,
     slidesToScroll: 4,
   };
 
@@ -109,36 +70,64 @@ const WorstGamesEver = () => {
   };
 
   return (
-    <Container>
+    <div className="slider-game">
       {selectedGameId ? (
         <SingleGame gameId={selectedGameId} />
       ) : worstGames.length > 0 ? (
         <div>
-          <Heading>The Worst Games ever</Heading>
+          <h2>The Worst Games ever</h2>
           <Slider {...sliderSettings}>
             {worstGames.map((game) => (
-              <GameWrapper
+              <div
+                className="wrapper"
                 key={game.id}
                 onClick={() => handleGameClick(game.id)}
               >
-                <GameTitle>{game.name}</GameTitle>
-                <GameRating>
-                  {" "}
-                  Verfügbare Stores:{" "}
-                  {game?.stores.map((store) => store.store.name).join(", ")}
-                </GameRating>
+                <h3>{game.name}</h3>
+                <p>
+                  Bewertung: {game.metacritic}%
+                  <div className="rating">
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                      checked
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                    <input
+                      type="radio"
+                      name="rating-1"
+                      className="mask mask-star"
+                    />
+                  </div>
+                </p>
+
                 {game.background_image &&
                 !game.background_image.includes("error") ? (
-                  <GameImage src={game.background_image} alt={game.name} />
+                  <img src={game.background_image} alt={game.name} />
                 ) : (
                   <p>Kein Bild verfügbar</p>
                 )}
-              </GameWrapper>
+              </div>
             ))}
           </Slider>
         </div>
       ) : (
-        <LoadingMessage>
+        <div>
           <span className="loading loading-spinner text-primary"></span>
           <span className="loading loading-spinner text-secondary"></span>
           <span className="loading loading-spinner text-accent"></span>
@@ -147,9 +136,9 @@ const WorstGamesEver = () => {
           <span className="loading loading-spinner text-success"></span>
           <span className="loading loading-spinner text-warning"></span>
           <span className="loading loading-spinner text-error"></span>
-        </LoadingMessage>
+        </div>
       )}
-    </Container>
+    </div>
   );
 };
 
