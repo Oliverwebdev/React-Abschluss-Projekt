@@ -7,7 +7,7 @@ export default defineConfig(({ command }) => {
     base:
       command === "serve"
         ? "/React-Abschluss-Projekt/"
-        : "/React-Abschluss-Projekt/",
+        : "/",
   };
   return config;
 });
