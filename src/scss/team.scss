@@ -14,26 +14,12 @@
 
     .img-wrapper {
       .team-img {
-        @apply w-52 h-52 object-cover rounded-full m-auto border-2  hover:scale-110 transition-transform duration-500;
+        @apply w-52 h-52 object-cover rounded-full m-auto border-2 border-black dark:border-white hover:scale-110 transition-transform duration-500;
       }
     }
   }
 
   .social-media-links {
     @apply flex justify-center;
-  }
-}
-
-[data-theme="light"] {
-  .team-container {
-    .team-card-container {
-      .team-card {
-        .img-wrapper {
-          .team-img {
-            @apply border-black;
-          }
-        }
-      }
-    }
   }
 }

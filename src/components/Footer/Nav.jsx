@@ -1,87 +1,99 @@
 import React from "react";
-import styled from "styled-components";
-import XBox from "/src/images/XBox.png";
-import PS from "./../../images/PlayStation.png";
-import Pc from "./../../images/Pc.jpg";
 import Epic from "./../../images/Epic.jpg";
 import Riot from "./../../images/Riot.png";
 import Steam from "./../../images/Steam.jpg";
 
-// Styled Components
-const Container = styled.nav`
-  .game-container {
-    /* Deine anderen Styles hier */
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-        justify-content: space-evenly;
-        margin-top: 2rem;
-
-  }
-
-  li {
-    margin-right: 20px;
-  }
-
-  a {
-    text-decoration: none;
-  }
-`;
-
-const Image = styled.img`
-  transition: transform 0.3s ease-out; /* Füge eine Transitionsanimation hinzu */
-
-  &:hover {
-    transform: translateY(-5px); /* Ändere die translateY-Werte nach Bedarf */
-  }
-`;
-
 function Nav() {
   return (
-    <Container>
+    <div className="game-container">
       <h2>Games Stores</h2>
 
       <ul>
         <li>
-          <a href="https://www.xbox.com" target="_blank" rel="noopener noreferrer">
-            <Image src={XBox} alt="XBox" />
+          <svg viewBox="0 0 600 400">
+            <path
+              d="M305.4,240.5H292l-23.1-31.9l-23.2,31.9h-13.4l29.8-41l-27.3-37.8h13.4l20.8,28.6l20.8-28.6h13.4l-27.5,37.8L305.4,240.5z
+	 M375,218.1c0,6.9-2.3,12.4-6.9,16.4c-4.6,3.9-11.1,6.1-19.6,6.1h-36.8v-35.2h-17.7l7.4-10.1h10.3v-33.5h35.3c8,0,14.1,2,18.3,5.7
+	c4.3,3.8,6.4,8.8,6.4,14.9c0,7.5-3.4,13.4-10.3,17.2c4.4,1.6,7.7,4.3,10,7.4C373.9,210,375,213.9,375,218.1z M323.7,195.4h22.6
+	c4.6,0,8-1,10.3-3.1c2.3-2,3.4-5.1,3.4-9.2c0-3.4-1.1-6.2-3.6-8.2c-2.3-2-5.7-2.9-10.1-2.9h-22.6V195.4L323.7,195.4z M362.9,217.8
+	c0-4.1-1.3-7.4-3.8-9.3c-2.5-2.1-6.2-3.1-11.1-3.1h-24.4v24.7h24.2c4.7,0,8.5-1.1,11.1-3.1C361.6,224.8,362.9,221.7,362.9,217.8
+	L362.9,217.8z M456.1,201.1c0,6.1-0.8,11.8-2.6,16.7c-1.8,4.9-4.4,9.3-7.8,13.1c-3.6,3.8-7.7,6.7-12.3,8.5c-4.6,2-9.8,2.8-15.7,2.8
+	c-5.7,0-11.1-1-15.7-2.8c-4.6-2-8.7-4.7-12.3-8.5c-3.6-3.8-6.2-8.2-8-13.1c-1.8-4.9-2.6-10.6-2.6-16.7s0.8-11.8,2.6-16.7
+	c1.8-4.9,4.4-9.5,8-13.2c3.4-3.8,7.5-6.5,12.3-8.5c4.6-1.8,10-2.8,15.7-2.8c5.7,0,11,1,15.7,2.8c4.6,1.8,8.8,4.7,12.3,8.5
+	c3.4,3.8,6.2,8.3,7.8,13.2C455.2,189.4,456.1,194.9,456.1,201.1z M391.5,201.1c0,9.3,2.5,16.7,7.2,22.1c4.7,5.4,11,8.2,19,8.2
+	c7.8,0,14.2-2.8,19-8.2c4.7-5.4,7-12.8,7-22.1c0-9.3-2.3-16.8-7-22.2c-4.7-5.4-11.1-8.2-19-8.2c-7.8,0-14.2,2.8-19,8.2
+	C394,184.5,391.5,191.8,391.5,201.1z M494.1,199.5l27.5-37.8h-13.4l-20.8,28.6l-20.8-28.6h-13.4l27.5,37.8l-29.8,41h13.4l23.1-31.9
+	l23.2,31.9H524L494.1,199.5z M142,187.1c19.9,15.1,53.5,52.1,43.3,62.6c-11.7,10.2-26.7,16.2-43.3,16.2s-31.8-6.1-43.3-16.2
+	c-10.3-10.5,23.5-47.5,43.2-62.4C141.8,187.1,142,187.1,142,187.1z M142,134.3c-13.3,0-24.3,3.6-34.3,9.7c-0.2,0-0.2,0.2-0.2,0.3
+	s0.2,0.2,0.3,0.2c12.8-2.8,32.2,8.2,34,9.3h0.2h0.2c1.8-1.1,21.2-12.1,34-9.3c0.2,0,0.3,0,0.3-0.2s0-0.3-0.2-0.3
+	C166.3,137.9,155.3,134.3,142,134.3z M95.9,153.2c-0.2,0-0.2,0.2-0.3,0.2c-12,12-19.4,28.5-19.4,46.7c0,14.9,5.1,28.8,13.5,39.8
+	c0,0.2,0.2,0.2,0.3,0.2c0.2,0,0.2-0.2,0-0.3c-5.1-15.6,20.7-53.1,34-68.8l0.2-0.2c0-0.2,0-0.2-0.2-0.2
+	C103.7,150.6,97,152.7,95.9,153.2z M160,170.4l-0.2,0.2c0,0,0,0.2,0.2,0.2c13.3,15.7,38.9,53.3,34,68.8v0.3c0.2,0,0.3,0,0.3-0.2
+	c8.4-11,13.5-24.9,13.5-39.8c0-18.2-7.4-34.7-19.5-46.7c-0.2-0.2-0.2-0.2-0.3-0.2C186.9,152.7,180.2,150.6,160,170.4z"
+            />
+          </svg>
+        </li>
+
+        <li>
+          <svg viewBox="0 0 74.9 56.7">
+            <g>
+              <g>
+                <path
+                  d="M18.2,35.4c-1.5,1-1,2.9,2.2,3.8c3.3,1.1,6.9,1.4,10.4,0.8c0.2,0,0.4-0.1,0.5-0.1v-3.4l-3.4,1.1c-1.3,0.4-2.6,0.5-3.9,0.2
+			c-1-0.3-0.8-0.9,0.4-1.4l6.9-2.4v-3.7l-9.6,3.3C20.5,34,19.3,34.6,18.2,35.4z M41.4,20.4v9.7c4.1,2,7.3,0,7.3-5.2
+			c0-5.3-1.9-7.7-7.4-9.6c-2.9-1-5.9-1.9-8.9-2.5v28.9l7,2.1V19.5c0-1.1,0-1.9,0.8-1.6C41.3,18.2,41.4,19.3,41.4,20.4z M54.4,33.1
+			c-2.9-1-6-1.4-9-1.1c-1.6,0.1-3.1,0.5-4.5,1l-0.3,0.1V37l6.5-2.4c1.3-0.4,2.6-0.5,3.9-0.2c1,0.3,0.8,0.9-0.4,1.4l-10,3.7v3.8
+			l13.8-5.1c1-0.4,1.9-0.9,2.7-1.7C57.8,35.5,57.5,34.1,54.4,33.1z"
+                />
+              </g>
+            </g>
+          </svg>
+        </li>
+
+        <li>
+          <svg viewBox="0 0 600 450">
+            <g>
+              <path
+                d="M383.7,214.4h-37.3v47.5c0,4.9-2,6.9-6.1,6.9s-6.1-2-6.1-6.9V139c0-4.1,2-6.5,6.1-6.5s6.1,2.4,6.1,6.5v43h37.3
+		v-41.4c0-20.3-10.1-34.9-41.8-34.9s-47.1,12.2-47.1,34.9v119.7c0,23.1,15.4,35.3,47.1,35.3s41.8-14.6,41.8-35.3V214.4z
+		 M286.8,141.4c0-22.7-11-34.9-36.9-34.9h-50.3v188.3h39.4v-72.6h11c26,0,36.9-12.2,36.9-34.9V141.4z M238.9,195v-61.3
+		c8.9,0,12.6,2.4,12.6,10.5v40.2C251.4,192.5,247.8,195,238.9,195"
+              />
+            </g>
+          </svg>
+        </li>
+
+        <li>
+          <a
+            href="https://www.epicgames.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={Epic} alt="Epic" />
           </a>
         </li>
 
         <li>
-          <a href="https://www.playstation.com" target="_blank" rel="noopener noreferrer">
-            <Image src={PS} alt="PlayStation" />
+          <a
+            href="https://www.riotgames.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={Riot} alt="Riot" />
           </a>
         </li>
 
         <li>
-          <a href="https://www.instant-gaming.com/de/" target="_blank" rel="noopener noreferrer">
-            <Image className="w-12" src={Pc} alt="PC" />
-          </a>
-        </li>
-
-        <li>
-          <a href="https://www.epicgames.com" target="_blank" rel="noopener noreferrer">
-            <Image src={Epic} alt="Epic" />
-          </a>
-        </li>
-
-        <li>
-          <a href="https://www.riotgames.com" target="_blank" rel="noopener noreferrer">
-            <Image src={Riot} alt="Riot" />
-          </a>
-        </li>
-
-        <li>
-          <a href="https://store.steampowered.com" target="_blank" rel="noopener noreferrer">
-            <Image src={Steam} alt="Steam" />
+          <a
+            href="https://store.steampowered.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={Steam} alt="Steam" />
           </a>
         </li>
       </ul>
-    </Container>
+    </div>
   );
 }
 

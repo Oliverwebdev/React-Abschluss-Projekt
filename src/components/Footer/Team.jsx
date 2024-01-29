@@ -12,7 +12,7 @@ import UserNorbert from "/src/images/Norbert.jpg";
 
 const teamMembers = [
   {
-    name: "Oliver",
+    name: "Oliver Spörl",
     position: "Front/Backend Developer",
     image: UserOli,
     socialLinks: {
@@ -29,9 +29,9 @@ const teamMembers = [
     image: UserBita,
     socialLinks: {
       twitter: "http://www.twitter.com/bitasadeghi",
-      facebook: "http://www.facebook.com/bitasadeghi",
-      instagram: "http://www.instagram.com/bitasadeghi",
-      gmail: "mailto:bita@example.com",
+      facebook: "https://www.facebook.com/bita.sadeghi.31",
+      instagram: "https://www.instagram.com/bita.s9189/",
+      gmail: "bita.s9170@gmail.com.com",
       githubUrl: "https://github.com/bita9170",
     },
   },

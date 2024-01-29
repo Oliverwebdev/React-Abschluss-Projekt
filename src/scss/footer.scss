@@ -8,20 +8,13 @@ footer {
       @apply flex justify-center flex-wrap gap-8;
 
       img {
-        @apply m-auto mb-10
+        @apply m-auto mb-10;
+      }
+      svg {
+        @apply w-2/6 fill-current text-secondary dark:text-white;
       }
     }
   }
 }
 
-[data-theme="light"] {
-  footer {
-    .game-container{
-      ul{
-        img{
-          @apply bg-gray-700
-        }
-      }
-    }
-  }
-}
+
