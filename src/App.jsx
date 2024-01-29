@@ -15,7 +15,7 @@ function App() {
       <Header />
       <div className="main-content">
         <Routes>
-          <Route path="/" element={<Home />} />
+        <Route index element={<Home />} />
           <Route path="/pc" element={<PC />} />
           <Route path="/ps" element={<PlayStation />} />
           <Route path="/xbox" element={<Xbox />} />
