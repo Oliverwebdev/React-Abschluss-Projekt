@@ -157,7 +157,7 @@ const PcGamesFetch = () => {
       >
         {pageSizeOptions.map((option) => (
           <option key={option} value={option}>
-            {option} pro Seite
+            {option} per Page
           </option>
         ))}
       </select>
