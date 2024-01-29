@@ -20,7 +20,7 @@ const PsGamesFetch = () => {
 
   // PlayStation-Plattformen
   const platforms = [
-    { id: "27", name: "PlayStation 1" },
+    { id: "27", name: "PlayStation One/PSX" },
     { id: "15", name: "PlayStation 2" },
     { id: "16", name: "PlayStation 3" },
     { id: "18", name: "PlayStation 4" },
@@ -151,7 +151,7 @@ const PsGamesFetch = () => {
 
       {/* Dropdown-Menü für die Auswahl der PlayStation-Plattform */}
       <select
-        className="platformSelect"
+        className="dropdown-pg"
         value={platform}
         onChange={handlePlatformChange}
       >
@@ -185,7 +185,7 @@ const PsGamesFetch = () => {
               src={game.background_image}
               alt={game.name}
             />
-            <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
+            <button onClick={() => handleShowDetails(game.id)}>More...</button>
           </li>
         ))}
       </ul>
@@ -200,11 +200,11 @@ const PsGamesFetch = () => {
 
       {/* Paginierung - Schaltfläche zum Laden der vorherigen Seite */}
       <div className="pagination">
-        <button onClick={handlePagePrev}>Vorherige Seite</button>
+        <button onClick={handlePagePrev}>Prev Page</button>
       </div>
       {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
       <div className="pagination">
-        <button onClick={handlePageChange}>Nächste Seite</button>
+        <button onClick={handlePageChange}>Next Page</button>
       </div>
     </div>
   );
