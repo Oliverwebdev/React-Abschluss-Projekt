@@ -14,15 +14,15 @@ const XboxGamesFetch = () => {
   // Zustand für die Anzahl der Spiele pro Seite
   const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
   // Zustand zum Speichern der ausgewählten Xbox-Plattform
-  const [platform, setPlatform] = useState("1"); // Standardmäßig Xbox One
+  const [platform, setPlatform] = useState("80"); // Standardmäßig Xbox One
   // Anzahl der anzuzeigenden Spiele pro Seite
   const pageSizeOptions = [10, 20, 30, 40];
 
   // Xbox-Plattformen
   const platforms = [
-    { id: "1", name: "Xbox" },
+    { id: "80", name: "Xbox" },
     { id: "14", name: "Xbox 360" },
-    { id: "80", name: "Xbox One" },
+    { id: "1", name: "Xbox One" },
     { id: "186", name: "Xbox Series X/S" },
   ];
 
