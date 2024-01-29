@@ -2,22 +2,23 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
 import SingleGame from "../../apis/SingelGameFetch";
+import apiKey from "../../apis/api"; 
 
 function SearchBox() {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedGame, setSelectedGame] = useState(null);
-  const navigate = useNavigate(); // Hook zum Navigieren zwischen Routen
+  const navigate = useNavigate();
 
-  const MAX_SUGGESTIONS = 3;
+  const MAX_SUGGESTIONS = 4;
 
   const loadSuggestions = async (inputValue) => {
     try {
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=e5af9c0ecbb74eb68b32eb1dc1142b2b&search=${inputValue}`
+        `https://api.rawg.io/api/games?key=${apiKey}&search=${inputValue}`
       );
       const data = await response.json();
-      setSuggestions(data.results || []);
+      setSuggestions(data.results.slice(0, MAX_SUGGESTIONS) || []);
     } catch (error) {
       console.error("Fehler beim Laden von Vorschlägen:", error);
     }
@@ -26,12 +27,11 @@ function SearchBox() {
   const loadGameDetails = async (gameId) => {
     try {
       const response = await fetch(
-        `https://api.rawg.io/api/games/${gameId}?key=e5af9c0ecbb74eb68b32eb1dc1142b2b`
+        `https://api.rawg.io/api/games/${gameId}?key=${apiKey}`
       );
       const data = await response.json();
       setSelectedGame(data);
 
-      // Navigiere zur Game Details Route
       navigate(`/${gameId}`);
     } catch (error) {
       console.error("Fehler beim Laden von Spiel-Details:", error);
@@ -56,6 +56,12 @@ function SearchBox() {
     await loadGameDetails(suggestion.id);
   };
 
+  const onSearchSubmit = () => {
+    if (selectedGame) {
+      navigate(`/${selectedGame.id}`);
+    }
+  };
+
   const inputProps = {
     placeholder: "Search",
     value,
@@ -63,8 +69,20 @@ function SearchBox() {
   };
 
   return (
-    <div className="join">
-      
+    <div className="join text-center">
+      <Autosuggest
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        shouldRenderSuggestions={shouldRenderSuggestions}
+        onSuggestionSelected={onSuggestionSelected}
+        inputProps={inputProps}
+      />
+      <button className="btn join-item" onClick={onSearchSubmit}>
+        Search
+      </button>
       <div className="indicator">
         {selectedGame ? (
           <div>
@@ -76,14 +94,7 @@ function SearchBox() {
             </button>
             <SingleGame gameId={selectedGame.id} />
           </div>
-        ) : (
-          <button
-            className="btn join-item"
-            onClick={() => console.log(selectedGame)}
-          >
-            Search
-          </button>
-        )}
+        ) : null}
       </div>
     </div>
   );

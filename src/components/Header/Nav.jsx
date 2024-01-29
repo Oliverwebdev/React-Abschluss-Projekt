@@ -31,6 +31,7 @@ function Nav() {
         <li>
           <Link to="/xbox">Xbox</Link>
         </li>
+        
       </ul>
     </nav>
   );

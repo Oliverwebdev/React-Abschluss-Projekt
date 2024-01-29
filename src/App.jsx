@@ -8,6 +8,7 @@ import PlayStation from "./pages/PlayStation";
 import Xbox from "./pages/Xbox";
 import PC from "./pages/PC";
 import React from "react";
+import GameDetails from "./pages/GameDetails";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/pc" element={<PC />} />
           <Route path="/ps" element={<PlayStation />} />
           <Route path="/xbox" element={<Xbox />} />
+          <Route path="/:gameId" element={<GameDetails/>} />
         </Routes>
       </div>
       <Footer />
