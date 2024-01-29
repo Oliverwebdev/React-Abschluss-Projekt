@@ -4,6 +4,8 @@
   background-size: contain;
   overflow: hidden;
 
+
+
   .stage-content {
     @apply flex flex-col justify-center order-2 md:order-1;
 
@@ -17,7 +19,7 @@
   }
 
   img {
-    @apply relative left-12 order-1 md:order-2;
+    @apply relative left-12 order-1 md:order-2 ;
   }
 
 
