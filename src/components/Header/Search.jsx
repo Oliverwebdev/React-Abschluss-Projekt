@@ -1,13 +1,34 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import Autosuggest from "react-autosuggest";
-import SingleGame from "../../apis/SingelGameFetch";
-import apiKey from "../../apis/api"; 
+import apiKey from "../../apis/api";
+import SearchGame from "../../apis/SearchGameFetch";
+
+const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const SearchInput = styled.input.attrs((props) => ({
+  type: "text",
+}))`
+  padding: 10px;
+  margin-right: 5px;
+  display: ${(props) => (props.isVisible ? "block" : "none")};
+`;
+
+const SearchButton = styled.button`
+  padding: 10px;
+  display: ${(props) => (props.isVisible ? "block" : "none")};
+`;
 
 function SearchBox() {
   const [value, setValue] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedGame, setSelectedGame] = useState(null);
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const navigate = useNavigate();
 
   const MAX_SUGGESTIONS = 4;
@@ -69,7 +90,7 @@ function SearchBox() {
   };
 
   return (
-    <div className="join text-center">
+    <SearchContainer>
       <Autosuggest
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
@@ -80,9 +101,9 @@ function SearchBox() {
         onSuggestionSelected={onSuggestionSelected}
         inputProps={inputProps}
       />
-      <button className="btn join-item" onClick={onSearchSubmit}>
+      <SearchButton isVisible={isSearchVisible} className="btn join-item" onClick={onSearchSubmit}>
         Search
-      </button>
+      </SearchButton>
       <div className="indicator">
         {selectedGame ? (
           <div>
@@ -92,11 +113,11 @@ function SearchBox() {
             >
               Zurück
             </button>
-            <SingleGame gameId={selectedGame.id} />
+            <SearchGame gameId={selectedGame.id} />
           </div>
         ) : null}
       </div>
-    </div>
+    </SearchContainer>
   );
 }
 
