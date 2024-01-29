@@ -20,7 +20,7 @@ function App() {
           <Route path="/pc" element={<PC />} />
           <Route path="/ps" element={<PlayStation />} />
           <Route path="/xbox" element={<Xbox />} />
-          <Route path="/:gameId" element={<GameDetails/>} />
+          {/* <Route path="/:gameId" element={<GameDetails/>} /> */}
         </Routes>
       </div>
       <Footer />
