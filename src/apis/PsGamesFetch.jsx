@@ -13,34 +13,39 @@ const PsGamesFetch = () => {
   const [currentPage, setCurrentPage] = useState(1);
   // Zustand für die Anzahl der Spiele pro Seite
   const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
+  // Zustand zum Speichern der ausgewählten PlayStation-Plattform
+  const [platform, setPlatform] = useState("27"); // Standardmäßig PlayStation 1
   // Anzahl der anzuzeigenden Spiele pro Seite
   const pageSizeOptions = [10, 20, 30, 40];
+
+  // PlayStation-Plattformen
+  const platforms = [
+    { id: "27", name: "PlayStation 1" },
+    { id: "15", name: "PlayStation 2" },
+    { id: "16", name: "PlayStation 3" },
+    { id: "18", name: "PlayStation 4" },
+    { id: "187", name: "PlayStation 5" },
+    { id: "17", name: "PSP" },
+    { id: "19", name: "PS Vita" },
+  ];
 
   // Funktion zum Abrufen von Daten für eine bestimmte Seite
   const fetchPageData = async (page) => {
     try {
-      // API-Schlüssel und Plattform einstellen
-      const platforms = "27" && "15" && "16" && "18" && "187" && "17" && "19"; // PlayStation-Plattformen
-
-      // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${gamesPerPage}&ordering=name`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platform}&page=${page}&page_size=${gamesPerPage}&ordering=name`
       );
 
-      // Überprüfen der HTTP-Antwort
       if (!response.ok) {
         throw new Error(`Fehler: ${response.status}`);
       }
 
-      // JSON-Daten abrufen
       const data = await response.json();
 
-      // Überprüfen der Daten
       if (!data.results) {
         throw new Error("Ungültiges Datenformat");
       }
 
-      // Spiele nach Name sortieren
       const sortedPageGames = data.results.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
@@ -59,7 +64,6 @@ const PsGamesFetch = () => {
   // Funktion zum Abrufen der lokalen Spieldaten
   const fetchLocalGameData = async () => {
     try {
-      // Lokale Datei psGamesLocal.json abrufen
       const localGameDataResponse = await fetch("./datas/psGamesLocal.json");
 
       if (!localGameDataResponse.ok) {
@@ -68,7 +72,6 @@ const PsGamesFetch = () => {
         );
       }
 
-      // JSON-Daten aus der lokalen Datei abrufen
       const localGameData = await localGameDataResponse.json();
       console.log(localGameData);
       return localGameData.results;
@@ -119,6 +122,11 @@ const PsGamesFetch = () => {
     setGamesPerPage(parseInt(event.target.value));
   };
 
+  // Funktion zum Ändern der ausgewählten PlayStation-Plattform
+  const handlePlatformChange = (event) => {
+    setPlatform(event.target.value);
+  };
+
   // Initiale Daten abrufen, wenn die Komponente montiert wird
   useEffect(() => {
     const fetchData = async (page) => {
@@ -135,11 +143,24 @@ const PsGamesFetch = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage, gamesPerPage]);
+  }, [currentPage, gamesPerPage, platform]);
 
   return (
     <div className="gamesContainer">
       <p className="titelGames">PlayStation Games</p>
+
+      {/* Dropdown-Menü für die Auswahl der PlayStation-Plattform */}
+      <select
+        className="platformSelect"
+        value={platform}
+        onChange={handlePlatformChange}
+      >
+        {platforms.map((platformOption) => (
+          <option key={platformOption.id} value={platformOption.id}>
+            {platformOption.name}
+          </option>
+        ))}
+      </select>
 
       {/* Dropdown-Menü für die Anzahl der Spiele pro Seite */}
       <select
@@ -149,7 +170,7 @@ const PsGamesFetch = () => {
       >
         {pageSizeOptions.map((option) => (
           <option key={option} value={option}>
-            {option} per Page
+            {option} pro Seite
           </option>
         ))}
       </select>
@@ -164,7 +185,7 @@ const PsGamesFetch = () => {
               src={game.background_image}
               alt={game.name}
             />
-            <button onClick={() => handleShowDetails(game.id)}>More...</button>
+            <button onClick={() => handleShowDetails(game.id)}>Mehr...</button>
           </li>
         ))}
       </ul>
@@ -179,11 +200,11 @@ const PsGamesFetch = () => {
 
       {/* Paginierung - Schaltfläche zum Laden der vorherigen Seite */}
       <div className="pagination">
-        <button onClick={handlePagePrev}>Prev Page</button>
+        <button onClick={handlePagePrev}>Vorherige Seite</button>
       </div>
       {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
       <div className="pagination">
-        <button onClick={handlePageChange}>Next Page</button>
+        <button onClick={handlePageChange}>Nächste Seite</button>
       </div>
     </div>
   );
