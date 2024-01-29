@@ -9,10 +9,11 @@ function Header() {
     <>
       <header>
         <Logo />
-        <SearchBox />
+        {/* <SearchBox /> */}
         <Nav />
         <Account />
       </header>
+      <SearchBox />
     </>
   );
 }
