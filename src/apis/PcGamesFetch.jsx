@@ -138,6 +138,17 @@ const PcGamesFetch = () => {
     <div className="gamesContainer">
       <p className="titelGames">PC Games</p>
 
+      {/* Dropdown-Menü für die Sortierung */}
+      <select
+        className="dropdown-pg"
+        value={sortOption}
+        onChange={handleSortOptionChange}
+      >
+        <option value="name">Name</option>
+        <option value="-released">Newest</option>
+        <option value="-rating">Popularity</option>
+      </select>
+
       {/* Dropdown-Menü für die Anzahl der Spiele pro Seite */}
       <select
         className="dropdown-pg"
@@ -149,17 +160,6 @@ const PcGamesFetch = () => {
             {option} pro Seite
           </option>
         ))}
-      </select>
-
-      {/* Dropdown-Menü für die Sortierung */}
-      <select
-        className="dropdown-pg"
-        value={sortOption}
-        onChange={handleSortOptionChange}
-      >
-        <option value="name">Name</option>
-        <option value="-released">Newest</option>
-        <option value="-rating">Popularity</option>
       </select>
 
       {/* Liste der Spiele anzeigen */}
