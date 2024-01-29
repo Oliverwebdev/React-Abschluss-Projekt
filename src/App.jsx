@@ -15,10 +15,10 @@ function App() {
       <Header />
       <div className="main-content">
         <Routes>
-          <Route path="/React-Abschluss-Projekt" element={<Home />} />
-          <Route path="/pc" element={<PC />} />
-          <Route path="/ps" element={<PlayStation />} />
-          <Route path="/xbox" element={<Xbox />} />
+          <Route path="/React-Abschluss-Projekt/" element={<Home />} />
+          <Route path="/React-Abschluss-Projekt//pc" element={<PC />} />
+          <Route path="/React-Abschluss-Projekt//ps" element={<PlayStation />} />
+          <Route path="/React-Abschluss-Projekt//xbox" element={<Xbox />} />
         </Routes>
       </div>
       <Footer />
