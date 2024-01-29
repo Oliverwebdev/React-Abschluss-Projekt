@@ -15,6 +15,8 @@ const XboxGamesFetch = () => {
   const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
   // Zustand zum Speichern der ausgewählten Xbox-Plattform
   const [platform, setPlatform] = useState("80"); // Standardmäßig Xbox One
+  // Zustand für die ausgewählte Sortierung
+  const [sortOption, setSortOption] = useState("name"); // Standardmäßig nach Name sortieren
   // Anzahl der anzuzeigenden Spiele pro Seite
   const pageSizeOptions = [10, 20, 30, 40];
 
@@ -30,7 +32,7 @@ const XboxGamesFetch = () => {
   const fetchPageData = async (page) => {
     try {
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platform}&page=${page}&page_size=${gamesPerPage}&ordering=name`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platform}&page=${page}&page_size=${gamesPerPage}&ordering=${sortOption}`
       );
 
       if (!response.ok) {
@@ -124,6 +126,11 @@ const XboxGamesFetch = () => {
     setPlatform(event.target.value);
   };
 
+  // Funktion zum Ändern der Sortierungsoption
+  const handleSortOptionChange = (event) => {
+    setSortOption(event.target.value);
+  };
+
   // Initiale Daten abrufen, wenn die Komponente montiert wird
   useEffect(() => {
     const fetchData = async (page) => {
@@ -140,7 +147,7 @@ const XboxGamesFetch = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage, gamesPerPage, platform]);
+  }, [currentPage, gamesPerPage, platform, sortOption]);
 
   return (
     <div className="gamesContainer">
@@ -157,6 +164,17 @@ const XboxGamesFetch = () => {
             {platformOption.name}
           </option>
         ))}
+      </select>
+
+      {/* Dropdown-Menü für die Sortierung */}
+      <select
+        className="dropdown-pg"
+        value={sortOption}
+        onChange={handleSortOptionChange}
+      >
+        <option value="name">Name</option>
+        <option value="-released">Newest</option>
+        <option value="-rating">Popularity</option>
       </select>
 
       {/* Dropdown-Menü für die Anzahl der Spiele pro Seite */}

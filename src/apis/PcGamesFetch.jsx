@@ -13,34 +13,28 @@ const PcGamesFetch = () => {
   const [currentPage, setCurrentPage] = useState(1);
   // Zustand für die Anzahl der Spiele pro Seite
   const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
+  // Zustand für die ausgewählte Sortierung
+  const [sortOption, setSortOption] = useState("name"); // Standardmäßig nach Name sortieren
   // Anzahl der anzuzeigenden Spiele pro Seite
   const pageSizeOptions = [10, 20, 30, 40];
 
   // Funktion zum Abrufen von Daten für eine bestimmte Seite
   const fetchPageData = async (page) => {
     try {
-      // API-Schlüssel und Plattform einstellen
-      const platforms = "4";
-
-      // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${gamesPerPage}&ordering=name`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=4&page=${page}&page_size=${gamesPerPage}&ordering=${sortOption}`
       );
 
-      // Überprüfen der HTTP-Antwort
       if (!response.ok) {
         throw new Error(`Fehler: ${response.status}`);
       }
 
-      // JSON-Daten abrufen
       const data = await response.json();
 
-      // Überprüfen der Daten
       if (!data.results) {
         throw new Error("Ungültiges Datenformat");
       }
 
-      // Spiele nach Name sortieren
       const sortedPageGames = data.results.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
@@ -59,7 +53,6 @@ const PcGamesFetch = () => {
   // Funktion zum Abrufen der lokalen Spieldaten
   const fetchLocalGameData = async () => {
     try {
-      // Lokale Datei pcGamesLocal.json abrufen
       const localGameDataResponse = await fetch("./datas/pcGamesLocal.json");
 
       if (!localGameDataResponse.ok) {
@@ -68,7 +61,6 @@ const PcGamesFetch = () => {
         );
       }
 
-      // JSON-Daten aus der lokalen Datei abrufen
       const localGameData = await localGameDataResponse.json();
       console.log(localGameData);
       return localGameData.results;
@@ -119,6 +111,11 @@ const PcGamesFetch = () => {
     setGamesPerPage(parseInt(event.target.value));
   };
 
+  // Funktion zum Ändern der Sortierungsoption
+  const handleSortOptionChange = (event) => {
+    setSortOption(event.target.value);
+  };
+
   // Initiale Daten abrufen, wenn die Komponente montiert wird
   useEffect(() => {
     const fetchData = async (page) => {
@@ -135,7 +132,7 @@ const PcGamesFetch = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage, gamesPerPage]);
+  }, [currentPage, gamesPerPage, sortOption]);
 
   return (
     <div className="gamesContainer">
@@ -149,9 +146,20 @@ const PcGamesFetch = () => {
       >
         {pageSizeOptions.map((option) => (
           <option key={option} value={option}>
-            {option} per Page
+            {option} pro Seite
           </option>
         ))}
+      </select>
+
+      {/* Dropdown-Menü für die Sortierung */}
+      <select
+        className="dropdown-pg"
+        value={sortOption}
+        onChange={handleSortOptionChange}
+      >
+        <option value="name">Name</option>
+        <option value="-released">Newest</option>
+        <option value="-rating">Popularity</option>
       </select>
 
       {/* Liste der Spiele anzeigen */}
@@ -164,7 +172,6 @@ const PcGamesFetch = () => {
               src={game.background_image}
               alt={game.name}
             />
-
             <button onClick={() => handleShowDetails(game.id)}>More...</button>
           </li>
         ))}
@@ -184,7 +191,7 @@ const PcGamesFetch = () => {
       </div>
       {/* Paginierung - Schaltfläche zum Laden der nächsten Seite */}
       <div className="pagination">
-        <button onClick={handlePageChange}>Next Page</button>
+        <button onClick={handlePageChange}>Next page</button>
       </div>
     </div>
   );
