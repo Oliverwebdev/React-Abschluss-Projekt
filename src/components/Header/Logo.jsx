@@ -3,16 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import LogoImage from "/src/images/62ac88bb57b859791be72386_Logo playo.png";
 
 function Logo() {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    // Hier navigierst du zur Home-Seite, wenn das Logo angeklickt wird
+    navigate("/");
+  };
+
   return (
-    <Link to="/">
-      <div className="logo">
+    <div className="logo" onClick={handleLogoClick}>
+      <Link to="/React-Abschluss-Projekt/">
         <img src={LogoImage} alt="Logo" />
         <div>
-          <h1>OLBERTA </h1>
+          <h1>OLBERTA</h1>
           {/* <span className="hidden md:inline">Oliver Norbert Bita</span> */}
         </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
