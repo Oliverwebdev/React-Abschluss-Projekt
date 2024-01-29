@@ -5,6 +5,14 @@ import Autosuggest from "react-autosuggest";
 import apiKey from "../../apis/api";
 import SearchGame from "../../apis/SearchGameFetch";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px; /* Optional: Abstand zwischen den Komponenten */
+`;
+
 const SearchContainer = styled.div`
   display: flex;
   align-items: center;
@@ -90,20 +98,22 @@ function SearchBox() {
   };
 
   return (
-    <SearchContainer>
-      <Autosuggest
-        suggestions={suggestions}
-        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-        onSuggestionsClearRequested={onSuggestionsClearRequested}
-        getSuggestionValue={getSuggestionValue}
-        renderSuggestion={renderSuggestion}
-        shouldRenderSuggestions={shouldRenderSuggestions}
-        onSuggestionSelected={onSuggestionSelected}
-        inputProps={inputProps}
-      />
-      <SearchButton isVisible={isSearchVisible} className="btn join-item" onClick={onSearchSubmit}>
-        Search
-      </SearchButton>
+    <Container>
+      <SearchContainer>
+        <Autosuggest
+          suggestions={suggestions}
+          onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+          onSuggestionsClearRequested={onSuggestionsClearRequested}
+          getSuggestionValue={getSuggestionValue}
+          renderSuggestion={renderSuggestion}
+          shouldRenderSuggestions={shouldRenderSuggestions}
+          onSuggestionSelected={onSuggestionSelected}
+          inputProps={inputProps}
+        />
+        <SearchButton isVisible={isSearchVisible} className="btn join-item" onClick={onSearchSubmit}>
+          Search
+        </SearchButton>
+      </SearchContainer>
       <div className="indicator">
         {selectedGame ? (
           <div>
@@ -117,7 +127,7 @@ function SearchBox() {
           </div>
         ) : null}
       </div>
-    </SearchContainer>
+    </Container>
   );
 }
 

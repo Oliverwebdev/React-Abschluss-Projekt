@@ -8,7 +8,6 @@ import PlayStation from "./pages/PlayStation";
 import Xbox from "./pages/Xbox";
 import PC from "./pages/PC";
 import React from "react";
-import GameDetails from "./pages/GameDetails";
 
 function App() {
   return (
