@@ -5,47 +5,44 @@ import apiKey from "./api";
 const XboxGamesFetch = () => {
   // Zustand zum Speichern aller heruntergeladenen Spiele
   const [allGames, setAllGames] = useState([]);
-
   // Zustand zum Speichern der Spiele, die auf der aktuellen Seite angezeigt werden sollen
   const [games, setGames] = useState([]);
-
   // Zustand zur Speicherung der ID des ausgewählten Spiels für die Detailansicht
   const [selectedGameId, setSelectedGameId] = useState(null);
-
   // Zustand zur Verfolgung der aktuellen Seite
   const [currentPage, setCurrentPage] = useState(1);
-
   // Zustand für die Anzahl der Spiele pro Seite
   const [gamesPerPage, setGamesPerPage] = useState(10); // Standardwert: 10 pro Seite
-
+  // Zustand zum Speichern der ausgewählten Xbox-Plattform
+  const [platform, setPlatform] = useState("80"); // Standardmäßig Xbox One
   // Anzahl der anzuzeigenden Spiele pro Seite
   const pageSizeOptions = [10, 20, 30, 40];
+
+  // Xbox-Plattformen
+  const platforms = [
+    { id: "1", name: "Xbox" },
+    { id: "14", name: "Xbox 360" },
+    { id: "80", name: "Xbox One" },
+    { id: "186", name: "Xbox Series X/S" },
+  ];
 
   // Funktion zum Abrufen von Daten für eine bestimmte Seite
   const fetchPageData = async (page) => {
     try {
-      // API-Schlüssel und Plattform einstellen
-      const platforms = "80" && "1" && "14" && "186"; // Xbox-Plattformen
-
-      // Daten von der API basierend auf der angegebenen Seitenzahl und Seitengröße abrufen
       const response = await fetch(
-        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platforms}&page=${page}&page_size=${gamesPerPage}&ordering=name`
+        `https://api.rawg.io/api/games?key=${apiKey}&platforms=${platform}&page=${page}&page_size=${gamesPerPage}&ordering=name`
       );
 
-      // Überprüfen der HTTP-Antwort
       if (!response.ok) {
         throw new Error(`Fehler: ${response.status}`);
       }
 
-      // JSON-Daten abrufen
       const data = await response.json();
 
-      // Überprüfen der Daten
       if (!data.results) {
         throw new Error("Ungültiges Datenformat");
       }
 
-      // Spiele nach Name sortieren
       const sortedPageGames = data.results.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
@@ -64,7 +61,6 @@ const XboxGamesFetch = () => {
   // Funktion zum Abrufen der lokalen Spieldaten
   const fetchLocalGameData = async () => {
     try {
-      // Lokale Datei xboxGamesLocal.json abrufen
       const localGameDataResponse = await fetch("./datas/xboxGamesLocal.json");
 
       if (!localGameDataResponse.ok) {
@@ -73,7 +69,6 @@ const XboxGamesFetch = () => {
         );
       }
 
-      // JSON-Daten aus der lokalen Datei abrufen
       const localGameData = await localGameDataResponse.json();
       console.log(localGameData);
       return localGameData.results;
@@ -124,6 +119,11 @@ const XboxGamesFetch = () => {
     setGamesPerPage(parseInt(event.target.value));
   };
 
+  // Funktion zum Ändern der ausgewählten Xbox-Plattform
+  const handlePlatformChange = (event) => {
+    setPlatform(event.target.value);
+  };
+
   // Initiale Daten abrufen, wenn die Komponente montiert wird
   useEffect(() => {
     const fetchData = async (page) => {
@@ -140,11 +140,24 @@ const XboxGamesFetch = () => {
     };
 
     fetchData(currentPage);
-  }, [currentPage, gamesPerPage]);
+  }, [currentPage, gamesPerPage, platform]);
 
   return (
     <div className="gamesContainer">
       <p className="titelGames">Xbox Games</p>
+
+      {/* Dropdown-Menü für die Auswahl der Xbox-Plattform */}
+      <select
+        className="dropdown-pg"
+        value={platform}
+        onChange={handlePlatformChange}
+      >
+        {platforms.map((platformOption) => (
+          <option key={platformOption.id} value={platformOption.id}>
+            {platformOption.name}
+          </option>
+        ))}
+      </select>
 
       {/* Dropdown-Menü für die Anzahl der Spiele pro Seite */}
       <select
@@ -169,7 +182,6 @@ const XboxGamesFetch = () => {
               src={game.background_image}
               alt={game.name}
             />
-
             <button onClick={() => handleShowDetails(game.id)}>More...</button>
           </li>
         ))}
