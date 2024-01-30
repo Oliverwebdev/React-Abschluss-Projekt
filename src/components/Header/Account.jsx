@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
 import Theme from "./Theme";
 // import Search from "./Search";
 
 function Account() {
   const [userLogged, setUserLogged] = useState(true);
-
   const handleSearchBox = () => {
     const searchBox = document.querySelector(".search-box");
     searchBox.classList.toggle("hidden");
   };
 
   return (
-    <div className="account-container">
+    <div className="account-container order-2 md:order-3">
       <div className="search-container relative">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +50,7 @@ function Account() {
       ) : (
         <ul className="flex flex-wrap gap-4">
           <li>
-            <a className="btn btn-primary">Login</a>
+            <a className="btn btn-primary-content">Login</a>
           </li>
           <li>
             <a className="btn btn-secondary">Register</a>

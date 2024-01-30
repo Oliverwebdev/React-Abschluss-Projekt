@@ -11,7 +11,7 @@ function Logo() {
   };
 
   return (
-    <div className="logo" onClick={handleLogoClick}>
+    <div className="logo order-1" onClick={handleLogoClick}>
       <Link to="/React-Abschluss-Projekt/">
         <img src={LogoImage} alt="Logo" />
         <div>

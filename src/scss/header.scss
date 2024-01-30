@@ -34,13 +34,13 @@ header {
     }
 
     ul {
-      @apply justify-center items-center gap-10 hidden md:flex;
+      @apply justify-center items-center gap-10 md:flex fixed top-0 w-screen md:w-auto h-screen md:h-auto bg-black md:bg-transparent z-10 transition-all md:static flex align-middle flex-col md:flex-row;
 
       li {
         @apply relative;
 
         a {
-          @apply text-xl font-semibold uppercase;
+          @apply text-4xl md:text-xl font-semibold uppercase;
 
           &::after {
             @apply absolute left-0 -bottom-2 w-full h-0.5 bg-secondary;
