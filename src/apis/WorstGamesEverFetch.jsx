@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
 import data from "./datas/worstgamesdata.json";
 import apiKey from "./api";
-
+import Rating from "../components/Rating";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -86,34 +86,11 @@ const WorstGamesEver = () => {
                 <h3>{game.name}</h3>
                 <p>
                   Bewertung: {game.metacritic}%
-                  <div className="rating">
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                      checked
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                  </div>
+                  <Rating
+                    halfStars={
+                      game.metacritic ? Math.round(game.metacritic / 10) : 0
+                    }
+                  />
                 </p>
 
                 {game.background_image &&
@@ -127,7 +104,7 @@ const WorstGamesEver = () => {
           </Slider>
         </div>
       ) : (
-        <div>
+        <div className="loading-message">
           <span className="loading loading-spinner text-primary"></span>
           <span className="loading loading-spinner text-secondary"></span>
           <span className="loading loading-spinner text-accent"></span>

@@ -90,34 +90,6 @@ const SliderGames = ({ title, data }) => {
                 <h3>{game.name}</h3>
                 <p>
                   Bewertung: {game.metacritic}%
-                  <div className="rating">
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                      checked
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                  </div>
                 </p>
 
                 {game.background_image &&
@@ -131,7 +103,7 @@ const SliderGames = ({ title, data }) => {
           </Slider>
         </div>
       ) : (
-        <div>
+        <div className="loading-message">
           <span className="loading loading-spinner text-primary"></span>
           <span className="loading loading-spinner text-secondary"></span>
           <span className="loading loading-spinner text-accent"></span>

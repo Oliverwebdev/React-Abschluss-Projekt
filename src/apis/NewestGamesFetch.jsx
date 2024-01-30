@@ -4,9 +4,9 @@ import SingleGame from "./SingelGameFetch";
 import data from "./datas/newestgamedata.json";
 import styled from "styled-components";
 import apiKey from "./api";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Rating from "../components/Rating";
 
 const NewestGames = () => {
   const [newestGames, setNewestGames] = useState([]);
@@ -84,34 +84,11 @@ const NewestGames = () => {
                 <h3>{game.name}</h3>
                 <p>
                   Bewertung: {game.metacritic}%
-                  <div className="rating">
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                      checked
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                  </div>
+                  <Rating
+                    halfStars={
+                      game.metacritic ? Math.round(game.metacritic / 10) : 0
+                    }
+                  />
                 </p>
 
                 {game.background_image &&
@@ -125,7 +102,7 @@ const NewestGames = () => {
           </Slider>
         </div>
       ) : (
-        <div>
+        <div className="loading-message">
           <span className="loading loading-spinner text-primary"></span>
           <span className="loading loading-spinner text-secondary"></span>
           <span className="loading loading-spinner text-accent"></span>

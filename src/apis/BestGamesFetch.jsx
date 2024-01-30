@@ -2,48 +2,10 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import SingleGame from "./SingelGameFetch";
 import bestGamesData from "./datas/bestgamesdata.json";
-import styled from "styled-components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import apiKey from "./api";
-
-// Styled components
-const Container = styled.div`
-  padding: 20px;
-  text-align: center;
-`;
-
-const Heading = styled.h2`
-  margin: 2rem;
-  text-align: center;
-  font-size: 24px;
-  // text-decoration: underline;
-`;
-
-const GameWrapper = styled.div`
-  margin: 0 auto;
-`;
-
-const GameTitle = styled.h3`
-  margin-top: 10px;
-  font-size: 1.3rem;
-`;
-
-const MetacriticRating = styled.p`
-  margin-top: 5px;
-`;
-
-const GameImage = styled.img`
-  width: 180px;
-  height: 100px;
-  margin: 0 auto;
-`;
-
-const LoadingMessage = styled.div`
-  text-align: center;
-  font-size: 18px;
-  margin: 20px;
-`;
+import Rating from "../components/Rating";
 
 const BestGamesEver = () => {
   const [bestGames, setBestGames] = useState([]);
@@ -119,34 +81,11 @@ const BestGamesEver = () => {
                 <h3>{game.name}</h3>
                 <p>
                   Bewertung: {game.metacritic}%
-                  <div className="rating">
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                      checked
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                    <input
-                      type="radio"
-                      name="rating-1"
-                      className="mask mask-star"
-                    />
-                  </div>
+                  <Rating
+                    halfStars={
+                      game.metacritic ? Math.round(game.metacritic / 10) : 0
+                    }
+                  />
                 </p>
 
                 {game.background_image &&
@@ -160,7 +99,7 @@ const BestGamesEver = () => {
           </Slider>
         </div>
       ) : (
-        <div>
+        <div className="loading-message">
           <span className="loading loading-spinner text-primary"></span>
           <span className="loading loading-spinner text-secondary"></span>
           <span className="loading loading-spinner text-accent"></span>
