@@ -82,8 +82,8 @@ const BestGamesEver = () => {
                 <p>
                   Bewertung: {game.metacritic}%
                   <Rating
-                    halfStars={
-                      game.metacritic ? Math.round(game.metacritic / 10) : 0
+                    stars={
+                      game.metacritic ? Math.round(game.metacritic / 20) : 0
                     }
                   />
                 </p>
