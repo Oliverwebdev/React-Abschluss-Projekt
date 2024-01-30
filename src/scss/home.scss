@@ -1,0 +1,55 @@
+.slider-game {
+  @apply my-12 mt-10 rounded-xl relative hover:scale-105 transition-transform duration-700 py-2;
+
+  .slick-prev,
+  .slick-next {
+    @apply absolute w-20 h-20 bg-secondary rounded-full z-10 cursor-pointer;
+    box-shadow: inset 0 40px 40px rgba(0, 0, 0, 0.455);
+  }
+  .slick-prev {
+    @apply -left-10;
+  }
+
+  .slick-next {
+    @apply -right-10;
+  }
+  @media (max-width: 767px) {
+    .slick-prev,
+    .slick-next {
+      @apply w-10 h-10;
+    }
+
+    .slick-prev {
+      @apply -left-4;
+    }
+
+    .slick-next {
+      @apply -right-4;
+    }
+  }
+
+  div {
+    @apply w-full mr-0;
+
+    h3 {
+      @apply mt-8 text-center font-bold;
+    }
+    p {
+      @apply mt-2 text-center font-bold; //rating center is so
+      .rating {
+        @apply flex justify-center;
+      }
+    }
+    img {
+      @apply w-full h-96 mt-10 object-cover hover:opacity-75 cursor-pointer;
+    }
+  }
+  box-shadow: 0 10px 30px rgba(238, 175, 3, 0.383);
+  //light mode
+  [data-theme="light"] & {
+    box-shadow: 0 10px 30px rgba(58, 2, 103, 0.645);
+  }
+}
+.loading-message {
+  @apply text-center;
+}

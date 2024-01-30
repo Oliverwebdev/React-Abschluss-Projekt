@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+// import React, { useEffect } from "react";
 import stageImage from "./../images/spiderman.png";
 import Indexmain from "../components/buildcomponents/Indexmain";
 
@@ -15,7 +15,9 @@ function Home() {
             integration ensures current and detailed gaming information.
           </p>
         </div>
-        <img src={stageImage} alt="Spiderman" />
+    
+        <img className="outer-animation" src={stageImage} alt="Spiderman"/>
+
       </div>
       <Indexmain />
     </div>
