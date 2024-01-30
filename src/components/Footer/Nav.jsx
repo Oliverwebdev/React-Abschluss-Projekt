@@ -1,7 +1,4 @@
 import React from "react";
-import Epic from "./../../images/Epic.jpg";
-import Riot from "./../../images/Riot.png";
-import Steam from "./../../images/Steam.jpg";
 
 function Nav() {
   return (
@@ -10,6 +7,7 @@ function Nav() {
 
       <ul>
         <li>
+          
           <svg viewBox="0 0 600 400">
             <path
               d="M305.4,240.5H292l-23.1-31.9l-23.2,31.9h-13.4l29.8-41l-27.3-37.8h13.4l20.8,28.6l20.8-28.6h13.4l-27.5,37.8L305.4,240.5z
@@ -63,35 +61,6 @@ function Nav() {
           </svg>
         </li>
 
-        <li>
-          <a
-            href="https://www.epicgames.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={Epic} alt="Epic" />
-          </a>
-        </li>
-
-        <li>
-          <a
-            href="https://www.riotgames.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={Riot} alt="Riot" />
-          </a>
-        </li>
-
-        <li>
-          <a
-            href="https://store.steampowered.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img src={Steam} alt="Steam" />
-          </a>
-        </li>
       </ul>
     </div>
   );

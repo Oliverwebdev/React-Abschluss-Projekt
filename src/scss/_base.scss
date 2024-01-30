@@ -21,7 +21,7 @@ h2 {
   @apply text-2xl font-bold uppercase text-center text-secondary relative my-6;
 
   &::after {
-    @apply content-[''] w-1/4 left-1/2 -translate-x-1/2 h-0.5 bg-secondary absolute  -bottom-4;
+    @apply content-[''] w-1/4 left-1/2 -translate-x-1/2 h-0.5 bg-secondary absolute -bottom-4;
   }
 }
 
@@ -31,7 +31,8 @@ body {
   font-family: "Roboto", sans-serif;
 
   .container {
-    @apply max-w-screen-xl mx-auto my-0;
+    @apply max-w-screen-2xl mx-auto my-0;
+    
   }
 }
 
