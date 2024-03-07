@@ -8,11 +8,11 @@ export const registerUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: 'Benutzer existiert bereits' });
     }
-    const hashedPassword = await bcrypt.hash(password, 12);
     
+    const hashedPassword = await bcrypt.hash(password, 12);
     const user = await User.create({ name, email, password: hashedPassword, street, city });
 
-    res.status(201).json({ message: 'Benutzer erfolgreich erstellt', user });
+    res.status(201).json({ message: 'Benutzer erfolgreich erstellt', user: { name: user.name, email: user.email, role: user.role } });
   } catch (error) {
     res.status(500).json({ message: 'Fehler bei der Registrierung', error: error.message });
   }
@@ -30,7 +30,7 @@ export const loginUser = async (req, res) => {
       return res.status(400).json({ message: 'Ungültiges Passwort' });
     }
 
-    res.status(200).json({ message: 'Erfolgreich angemeldet' });
+    res.status(200).json({ message: 'Erfolgreich angemeldet', role: user.role });
   } catch (error) {
     res.status(500).json({ message: 'Fehler bei der Anmeldung', error: error.message });
   }

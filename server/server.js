@@ -2,10 +2,18 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import dotenv from 'dotenv';
+import cors from 'cors'; 
 
 dotenv.config({ path: '../.env' });
 
 const app = express();
+
+const corsOptions = {
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 mongoose
