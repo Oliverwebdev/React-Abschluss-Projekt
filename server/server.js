@@ -1,8 +1,11 @@
+// Importieren Sie express, mongoose, userRoutes, dotenv und cors wie bereits vorhanden
 import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import dotenv from 'dotenv';
 import cors from 'cors'; 
+
+import morgan from 'morgan';
 
 dotenv.config({ path: '../.env' });
 
@@ -15,6 +18,8 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+app.use(morgan('dev'));
 
 mongoose
   .connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true })
