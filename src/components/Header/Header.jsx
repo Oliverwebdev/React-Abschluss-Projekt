@@ -2,6 +2,7 @@ import React from "react";
 import Logo from "./Logo";
 import Nav from "./Nav";
 import Account from "./Account";
+import Anmeldung from "./Anmeldung";
 
 function Header() {
   return (
@@ -9,6 +10,7 @@ function Header() {
       <header>
         <Logo />
         <Nav />
+        <Anmeldung />
         <Account />
       </header>
     </>
