@@ -10,7 +10,7 @@ function Header() {
       <header>
         <Logo />
         <Nav />
-        <Anmeldung />
+        {/* <Anmeldung /> */}
         <Account />
       </header>
     </>
