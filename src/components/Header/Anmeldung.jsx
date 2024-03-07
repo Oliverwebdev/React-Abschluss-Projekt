@@ -69,7 +69,7 @@ function Anmeldung() {
 
     try {
       const response = await axios.post(url, formData);
-      setIsAuthenticated(true); // Benutzer ist nun authentifiziert
+      setIsAuthenticated(true); 
       setSuccessMessage(`Erfolgreich ${isLogin ? 'angemeldet' : 'registriert'}. Willkommen!`);
     } catch (error) {
       setErrorMessage(error.response ? error.response.data.message : 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
@@ -77,8 +77,7 @@ function Anmeldung() {
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(false); // Benutzer abmelden
-    // Formular und Meldungen zurücksetzen
+    setIsAuthenticated(false); 
     setFormData({
       name: '',
       email: '',
