@@ -1,4 +1,3 @@
-// Importieren Sie express, mongoose, userRoutes, dotenv und cors wie bereits vorhanden
 import express from 'express';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
