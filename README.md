@@ -11,7 +11,7 @@ Tauche ein in die Welt der Videospiele und erkunde fesselnde Welten mit dem Reac
 - **Bita (Frontend-Entwickler):**
   Bita hat die visuelle Gestaltung und Benutzererfahrung unserer Seite in die Hand genommen. Mit React als ihrem Werkzeug hat sie eine intuitive Benutzeroberfläche geschaffen, die es den Nutzern ermöglicht, spielend leicht durch eine Fülle von Informationen zu ihren bevorzugten Games zu navigieren.
 
-- **Norbert und Oliver (Backend-Entwickler):**
+- **Norbert und Oliver (Full-Stack-Entwickler):**
   Norbert und Oliver, unser Backend-Duo, haben die umfassende RAWG API integriert und eine solide Grundlage für die Verarbeitung und Bereitstellung von Spieledaten geschaffen. Durch ihre Fähigkeiten in der Serverentwicklung haben sie dafür gesorgt, dass die Plattform reibungslos funktioniert.
 
 **Über den React-Games-Explorer:**
