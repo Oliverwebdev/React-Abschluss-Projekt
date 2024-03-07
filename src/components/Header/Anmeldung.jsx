@@ -27,6 +27,7 @@ const Input = styled.input`
 
 const Button = styled.button`
   padding: 10px;
+  margin-top: 5px;
   background-color: blue;
   color: white;
   border: none;
@@ -52,6 +53,7 @@ function Anmeldung() {
     street: '',
     city: ''
   });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -67,10 +69,25 @@ function Anmeldung() {
 
     try {
       const response = await axios.post(url, formData);
+      setIsAuthenticated(true); // Benutzer ist nun authentifiziert
       setSuccessMessage(`Erfolgreich ${isLogin ? 'angemeldet' : 'registriert'}. Willkommen!`);
     } catch (error) {
       setErrorMessage(error.response ? error.response.data.message : 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
     }
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false); // Benutzer abmelden
+    // Formular und Meldungen zurücksetzen
+    setFormData({
+      name: '',
+      email: '',
+      password: '',
+      street: '',
+      city: ''
+    });
+    setSuccessMessage('');
+    setErrorMessage('');
   };
 
   return (
@@ -78,21 +95,26 @@ function Anmeldung() {
       <Title>{isLogin ? 'Anmeldung' : 'Registrierung'}</Title>
       {errorMessage && <Message>{errorMessage}</Message>}
       {successMessage && <Message success>{successMessage}</Message>}
-      <Form onSubmit={handleSubmit}>
-        {!isLogin && <Input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" />}
-        <Input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-Mail" required />
-        <Input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Passwort" required />
-        {!isLogin && (
-          <>
-            <Input type="text" name="street" value={formData.street} onChange={handleChange} placeholder="Straße" />
-            <Input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="Ort" />
-          </>
-        )}
-        <Button type="submit">{isLogin ? 'Anmelden' : 'Registrieren'}</Button>
-      </Form>
-      <Button onClick={() => setIsLogin(!isLogin)}>
-        {isLogin ? 'Zur Registrierung' : 'Zur Anmeldung'}
-      </Button>
+      {!isAuthenticated && (
+        <Form onSubmit={handleSubmit}>
+          {!isLogin && <Input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" />}
+          <Input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="E-Mail" required />
+          <Input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Passwort" required />
+          {!isLogin && (
+            <>
+              <Input type="text" name="street" value={formData.street} onChange={handleChange} placeholder="Straße" />
+              <Input type="text" name="city" value={formData.city} onChange={handleChange} placeholder="Ort" />
+            </>
+          )}
+          <Button type="submit">{isLogin ? 'Anmelden' : 'Registrieren'}</Button>
+        </Form>
+      )}
+      {isAuthenticated && <Button onClick={handleLogout}>Abmelden</Button>}
+      {!isAuthenticated && (
+        <Button onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? 'Zur Registrierung' : 'Zur Anmeldung'}
+        </Button>
+      )}
     </Container>
   );
 }
